@@ -77,11 +77,6 @@ const TaggingPanel = () => {
       title: 'Defensive',
       category: 'defensive' as EventCategory,
       tags: ['TACKLE', 'INTERCEPT', 'BLOCK', 'CLEARANCE', 'ERROR']
-    },
-    {
-      title: 'Other',
-      category: 'other' as EventCategory,
-      tags: ['FOUL', 'OFFSIDE', 'CORNER', 'FREE KICK', 'CARD', 'SUB']
     }
   ];
 
