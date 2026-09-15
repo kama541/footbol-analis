@@ -47,18 +47,36 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
       
       <div className="flex items-center gap-6">
         
-        {/* Language Switcher */}
-        <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
-          <Globe size={16} className="text-slate-500 dark:text-slate-400" />
-          <select 
-            className="bg-transparent text-xs font-bold text-slate-700 dark:text-slate-300 outline-none cursor-pointer"
-            value={i18n.language}
-            onChange={handleLanguageChange}
+        {/* Custom Language Switcher */}
+        <div className="relative">
+          <button 
+            onClick={() => {
+              const el = document.getElementById('lang-dropdown');
+              if (el) el.classList.toggle('hidden');
+            }}
+            className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
           >
-            <option value="en" className="text-slate-900 bg-white dark:bg-slate-800 dark:text-white font-bold">ENG</option>
-            <option value="uz" className="text-slate-900 bg-white dark:bg-slate-800 dark:text-white font-bold">UZB</option>
-            <option value="ru" className="text-slate-900 bg-white dark:bg-slate-800 dark:text-white font-bold">RUS</option>
-          </select>
+            <Globe size={16} className="text-slate-500 dark:text-slate-400" />
+            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase">
+              {i18n.language || 'UZB'}
+            </span>
+          </button>
+          
+          <div id="lang-dropdown" className="absolute right-0 top-full mt-2 w-24 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg hidden overflow-hidden z-50">
+            {['en', 'uz', 'ru'].map(lang => (
+              <div 
+                key={lang}
+                onClick={() => {
+                  i18n.changeLanguage(lang);
+                  const el = document.getElementById('lang-dropdown');
+                  if (el) el.classList.add('hidden');
+                }}
+                className={`px-4 py-2 text-xs font-bold cursor-pointer transition-colors ${i18n.language === lang ? 'bg-football-blue text-white' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'}`}
+              >
+                {lang === 'en' ? 'ENG' : lang === 'uz' ? 'UZB' : 'RUS'}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="flex items-center gap-3">

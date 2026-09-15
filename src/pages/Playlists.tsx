@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play } from 'lucide-react';
+import { Play, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Playlists = () => {
@@ -16,7 +16,8 @@ const Playlists = () => {
     <div className="p-8 h-full overflow-y-auto">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold text-football-navy tracking-tight">Playlists</h1>
-        <button className="px-4 py-2 bg-football-blue text-white rounded-lg font-semibold hover:bg-football-blue/90 transition-colors shadow-sm text-sm">
+        <button className="flex items-center gap-2 px-5 py-2.5 bg-football-blue text-white rounded-xl font-bold hover:bg-football-blue/90 transition-all shadow-md hover:shadow-lg active:scale-95 text-sm">
+          <Plus size={18} />
           Create Playlist
         </button>
       </div>
