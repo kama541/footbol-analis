@@ -69,9 +69,19 @@ const TaggingPanel = () => {
 
   const sections = [
     {
+      title: 'Attacking',
+      category: 'attacking' as EventCategory,
+      tags: ['GOAL', 'ASSIST', 'SHOT', 'CHANCE', 'CROSS', 'KEY PASS']
+    },
+    {
       title: 'Defensive',
       category: 'defensive' as EventCategory,
       tags: ['TACKLE', 'INTERCEPT', 'BLOCK', 'CLEARANCE', 'ERROR']
+    },
+    {
+      title: 'Other',
+      category: 'other' as EventCategory,
+      tags: ['FOUL', 'OFFSIDE', 'CORNER', 'FREE KICK', 'CARD', 'SUB']
     }
   ];
 
@@ -105,7 +115,7 @@ const TaggingPanel = () => {
         </div>
         <div>
           <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 mt-2">
-            Izoh (Note)
+            IZOH (NOTE)
           </label>
           <div className="flex gap-2">
             <input 
@@ -114,12 +124,12 @@ const TaggingPanel = () => {
               onChange={(e) => setNote(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') handleSendNote(); }}
               placeholder="Izoh yozing..."
-              className="flex-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-medium rounded-lg p-2 outline-none focus:border-football-blue"
+              className="flex-1 w-full bg-white dark:bg-slate-800 border border-blue-400 text-slate-700 dark:text-slate-200 text-sm font-medium rounded-lg p-2 outline-none focus:border-blue-500"
             />
             <button
               onClick={handleSendNote}
               disabled={!note.trim()}
-              className="bg-football-navy text-white px-3 py-2 rounded-lg text-sm font-bold disabled:opacity-50 transition-colors"
+              className="bg-slate-500 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-bold disabled:opacity-50 transition-colors"
             >
               Jo'natish
             </button>
