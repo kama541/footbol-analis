@@ -19,7 +19,8 @@ export interface PlayerStat {
   pos: string;
   dist: number;
   sprints: number;
-  speed: number;
+  topSpeed: number;
+  currentSpeed: number;
   actions: number;
 }
 
@@ -55,11 +56,11 @@ interface MatchContextType {
 }
 
 const initialPlayers: PlayerStat[] = [
-  { id: 'p1', name: 'Jasur Karimov', num: 9, pos: 'ST', dist: 7.8, sprints: 18, speed: 31.2, actions: 4 },
-  { id: 'p2', name: 'Azizbek Aliyev', num: 7, pos: 'RW', dist: 8.4, sprints: 21, speed: 32.8, actions: 7 },
-  { id: 'p3', name: 'Bekzod Umarov', num: 5, pos: 'CB', dist: 6.9, sprints: 9, speed: 27.4, actions: 12 },
-  { id: 'p4', name: 'Sardor Rashidov', num: 10, pos: 'CAM', dist: 8.1, sprints: 15, speed: 29.5, actions: 24 },
-  { id: 'p5', name: 'Otabek Shukurov', num: 8, pos: 'CM', dist: 9.2, sprints: 12, speed: 28.1, actions: 31 },
+  { id: 'p1', name: 'Jasur Karimov', num: 9, pos: 'ST', dist: 7.8, sprints: 18, topSpeed: 31.2, currentSpeed: 0, actions: 4 },
+  { id: 'p2', name: 'Azizbek Aliyev', num: 7, pos: 'RW', dist: 8.4, sprints: 21, topSpeed: 32.8, currentSpeed: 0, actions: 7 },
+  { id: 'p3', name: 'Bekzod Umarov', num: 5, pos: 'CB', dist: 6.9, sprints: 9, topSpeed: 27.4, currentSpeed: 0, actions: 12 },
+  { id: 'p4', name: 'Sardor Rashidov', num: 10, pos: 'CAM', dist: 8.1, sprints: 15, topSpeed: 29.5, currentSpeed: 0, actions: 24 },
+  { id: 'p5', name: 'Otabek Shukurov', num: 8, pos: 'CM', dist: 9.2, sprints: 12, topSpeed: 28.1, currentSpeed: 0, actions: 31 },
 ];
 
 const MatchContext = createContext<MatchContextType | undefined>(undefined);
@@ -76,11 +77,38 @@ export const MatchProvider = ({ children }: { children: ReactNode }) => {
       interval = window.setInterval(() => {
         setCurrentTimeState((prev) => prev + 1);
         
-        // Simulate distance running over time
-        setPlayers(prev => prev.map(p => ({
-          ...p,
-          dist: +(p.dist + 0.002).toFixed(2)
-        })));
+        // Simulate dynamic speed tracking
+        setPlayers(prev => prev.map(p => {
+          // Generate realistic football speeds
+          // 90% of the time: walking/jogging (0-12 km/h)
+          // 8% of the time: running (12-24 km/h)
+          // 2% of the time: sprinting (24-34 km/h)
+          const rand = Math.random();
+          let newCurrentSpeed = 0;
+          
+          if (rand > 0.98) {
+            newCurrentSpeed = 24 + Math.random() * 10; // Sprint
+          } else if (rand > 0.9) {
+            newCurrentSpeed = 12 + Math.random() * 12; // Run
+          } else if (rand > 0.3) {
+            newCurrentSpeed = 4 + Math.random() * 8;   // Jog
+          } else {
+            newCurrentSpeed = Math.random() * 4;       // Walk/Stand
+          }
+          
+          newCurrentSpeed = +newCurrentSpeed.toFixed(1);
+          
+          const isNewSprint = newCurrentSpeed >= 25 && p.currentSpeed < 25;
+          const newTopSpeed = Math.max(p.topSpeed, newCurrentSpeed);
+          
+          return {
+            ...p,
+            dist: +(p.dist + (newCurrentSpeed / 3600)).toFixed(2), // Convert km/h to km per second
+            currentSpeed: newCurrentSpeed,
+            topSpeed: newTopSpeed,
+            sprints: p.sprints + (isNewSprint ? 1 : 0)
+          };
+        }));
       }, 1000);
     }
     return () => clearInterval(interval);

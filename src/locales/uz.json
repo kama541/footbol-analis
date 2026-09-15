@@ -1,0 +1,47 @@
+{
+  "sidebar": {
+    "matches": "O'yinlar",
+    "live_tagging": "Jonli Tahlil",
+    "playlists": "Pleylistlar",
+    "calendar": "Taqvim",
+    "users": "Foydalanuvchilar",
+    "devices": "Qurilmalar",
+    "dark_mode": "Tungi Rejim",
+    "light_mode": "Kunduzgi Rejim",
+    "settings": "Sozlamalar",
+    "logout": "Chiqish"
+  },
+  "header": {
+    "analysis": "TAHLIL",
+    "live": "JONLI",
+    "export_json": "JSON Yuklash",
+    "ai_assistant": "AI Yordamchi",
+    "match_time": "O'YIN VAQTI"
+  },
+  "live_tagging": {
+    "live_match_feed": "Jonli Translyatsiya",
+    "match_events": "O'yin Voqealari",
+    "active_player": "Faol O'yinchi"
+  },
+  "stats": {
+    "match_stats": "O'yin Statistikasi",
+    "player_tracking": "O'yinchilar Kuzatuvi",
+    "dist": "Masofa (km)",
+    "live_speed": "Joriy Tezlik",
+    "top_speed": "Maks. Tezlik",
+    "sprints": "Sprintlar",
+    "possession": "To'p Nazorati",
+    "shots": "Zarbalar",
+    "shots_on_target": "Aniq Zarbalar",
+    "corners": "Burchak To'plari",
+    "fouls": "Qoidabuzarliklar",
+    "xg": "Kutilayotgan Gollar (xG)"
+  },
+  "events": {
+    "recent_events": "So'nggi Voqealar",
+    "attacking": "Hujumkor",
+    "defensive": "Himoyaviy",
+    "other": "Boshqa",
+    "positive": "Ijobiy"
+  }
+}

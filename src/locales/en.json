@@ -1,0 +1,47 @@
+{
+  "sidebar": {
+    "matches": "Matches",
+    "live_tagging": "Live Tagging",
+    "playlists": "Playlists",
+    "calendar": "Calendar",
+    "users": "Users",
+    "devices": "Devices",
+    "dark_mode": "Dark Mode",
+    "light_mode": "Light Mode",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "header": {
+    "analysis": "ANALYSIS",
+    "live": "LIVE",
+    "export_json": "Export JSON",
+    "ai_assistant": "AI Assistant",
+    "match_time": "MATCH TIME"
+  },
+  "live_tagging": {
+    "live_match_feed": "Live Match Feed",
+    "match_events": "Match Events",
+    "active_player": "Active Player"
+  },
+  "stats": {
+    "match_stats": "Match Stats",
+    "player_tracking": "Player Tracking",
+    "dist": "Dist (km)",
+    "live_speed": "Live Speed",
+    "top_speed": "Top Speed",
+    "sprints": "Sprints",
+    "possession": "Possession",
+    "shots": "Shots",
+    "shots_on_target": "Shots on Target",
+    "corners": "Corners",
+    "fouls": "Fouls",
+    "xg": "Expected Goals (xG)"
+  },
+  "events": {
+    "recent_events": "Recent Events",
+    "attacking": "Attacking",
+    "defensive": "Defensive",
+    "other": "Other",
+    "positive": "Positive"
+  }
+}

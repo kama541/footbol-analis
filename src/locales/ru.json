@@ -1,0 +1,47 @@
+{
+  "sidebar": {
+    "matches": "Матчи",
+    "live_tagging": "Live Анализ",
+    "playlists": "Плейлисты",
+    "calendar": "Календарь",
+    "users": "Пользователи",
+    "devices": "Устройства",
+    "dark_mode": "Темный режим",
+    "light_mode": "Светлый режим",
+    "settings": "Настройки",
+    "logout": "Выйти"
+  },
+  "header": {
+    "analysis": "АНАЛИЗ",
+    "live": "LIVE",
+    "export_json": "Экспорт JSON",
+    "ai_assistant": "AI Ассистент",
+    "match_time": "ВРЕМЯ МАТЧА"
+  },
+  "live_tagging": {
+    "live_match_feed": "Прямая трансляция",
+    "match_events": "События матча",
+    "active_player": "Активный игрок"
+  },
+  "stats": {
+    "match_stats": "Статистика матча",
+    "player_tracking": "Трекинг игроков",
+    "dist": "Дист. (км)",
+    "live_speed": "Тек. Скорость",
+    "top_speed": "Макс. Скорость",
+    "sprints": "Спринты",
+    "possession": "Владение мячом",
+    "shots": "Удары",
+    "shots_on_target": "Удары в створ",
+    "corners": "Угловые",
+    "fouls": "Фолы",
+    "xg": "Ожидаемые голы (xG)"
+  },
+  "events": {
+    "recent_events": "Последние события",
+    "attacking": "Атака",
+    "defensive": "Оборона",
+    "other": "Прочее",
+    "positive": "Позитив"
+  }
+}

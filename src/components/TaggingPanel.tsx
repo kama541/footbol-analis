@@ -32,6 +32,7 @@ const TaggingPanel = () => {
   const { addEvent, currentTime, players } = useMatch();
   const [toast, setToast] = useState<string | null>(null);
   const [selectedPlayerId, setSelectedPlayerId] = useState(players[0].id);
+  const [note, setNote] = useState('');
 
   const handleTag = (type: string, category: EventCategory) => {
     const player = players.find(p => p.id === selectedPlayerId) || players[0];
@@ -41,10 +42,11 @@ const TaggingPanel = () => {
       time: currentTime,
       player: `${player.name} (#${player.num})`,
       team: 'Football Club',
-      description: `Tagged ${type} during live match`,
+      description: note.trim() ? note : `Tagged ${type} during live match`,
       category
     });
     setToast(`Added ${type}`);
+    setNote('');
     setTimeout(() => setToast(null), 2000);
   };
 
@@ -67,9 +69,9 @@ const TaggingPanel = () => {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-slate-50/50">
-      <div className="p-3 border-b border-slate-100 flex items-center justify-between bg-white shrink-0">
-        <h2 className="font-semibold text-football-navy">Match Events</h2>
+    <div className="flex flex-col h-full bg-slate-50/50 dark:bg-slate-900/50">
+      <div className="p-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900 shrink-0">
+        <h2 className="font-semibold text-football-navy dark:text-white">Match Events</h2>
         {toast && (
           <span className="text-xs font-bold text-football-green animate-fade-in bg-football-green/10 px-2 py-1 rounded">
             {toast}
@@ -77,22 +79,35 @@ const TaggingPanel = () => {
         )}
       </div>
       
-      <div className="p-3 bg-white border-b border-slate-100 shrink-0">
+      <div className="p-3 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shrink-0">
         <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
           Active Player
         </label>
         <select 
           value={selectedPlayerId}
           onChange={(e) => setSelectedPlayerId(e.target.value)}
-          className="w-full bg-slate-50 border border-slate-200 text-sm font-semibold rounded-lg p-2 outline-none focus:border-football-blue"
+          className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-semibold rounded-lg p-2 outline-none focus:border-football-blue mb-3"
         >
           {players.map(p => (
-            <option key={p.id} value={p.id}>#{p.num} {p.name}</option>
+            <option key={p.id} value={p.id} className="text-slate-900 bg-white dark:bg-slate-800 dark:text-white">
+              #{p.num} {p.name}
+            </option>
           ))}
         </select>
+        
+        <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 mt-2">
+          Add Note / Comment
+        </label>
+        <input 
+          type="text"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          placeholder="e.g. Bad pass under pressure..."
+          className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-medium rounded-lg p-2 outline-none focus:border-football-blue"
+        />
       </div>
 
-      <div className="flex-1 overflow-y-auto p-3 space-y-4 bg-white">
+      <div className="flex-1 overflow-y-auto p-3 space-y-4 bg-white dark:bg-slate-900">
         {sections.map(section => (
           <div key={section.title}>
             <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">

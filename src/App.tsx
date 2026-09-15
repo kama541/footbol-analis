@@ -6,6 +6,8 @@ import LiveTagging from './pages/LiveTagging';
 import Matches from './pages/Matches';
 import Playlists from './pages/Playlists';
 import Calendar from './pages/Calendar';
+import Users from './pages/Users';
+import Devices from './pages/Devices';
 import AiInsights from './components/AiInsights';
 import { MatchProvider } from './context/MatchContext';
 
@@ -26,6 +28,8 @@ function App() {
                 <Route path="/matches" element={<Matches />} />
                 <Route path="/playlists" element={<Playlists />} />
                 <Route path="/calendar" element={<Calendar />} />
+                <Route path="/users" element={<Users />} />
+                <Route path="/devices" element={<Devices />} />
               </Routes>
             </main>
           </div>
