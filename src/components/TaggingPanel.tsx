@@ -96,35 +96,35 @@ const TaggingPanel = () => {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-slate-50/50 dark:bg-slate-900/50">
-      <div className="p-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900 shrink-0">
-        <h2 className="font-semibold text-football-navy dark:text-white">Match Events</h2>
+    <div className="flex flex-col h-full bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-xl relative z-10 overflow-hidden shadow-[-10px_0_20px_rgba(0,0,0,0.05)] border-l border-slate-200/50 dark:border-slate-800/50">
+      <div className="p-4 border-b border-slate-200/50 dark:border-slate-800/50 flex items-center justify-between bg-white/70 dark:bg-slate-900/70 backdrop-blur-md shrink-0">
+        <h2 className="font-black text-slate-900 dark:text-white tracking-tight text-lg">Match Events</h2>
         {toast && (
-          <span className="text-xs font-bold text-football-green animate-fade-in bg-football-green/10 px-2 py-1 rounded">
+          <span className="text-[10px] font-black text-football-green animate-slide-up bg-football-green/10 border border-football-green/20 px-3 py-1.5 rounded-lg uppercase tracking-widest shadow-sm">
             {toast}
           </span>
         )}
       </div>
       
-      <div className="p-3 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shrink-0 space-y-3">
+      <div className="p-5 bg-white/40 dark:bg-slate-900/40 backdrop-blur-sm border-b border-slate-200/50 dark:border-slate-800/50 shrink-0 space-y-4">
         <div>
-          <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+          <label className="block text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2">
             Active Player
           </label>
           <select 
             value={selectedPlayerId}
             onChange={(e) => setSelectedPlayerId(e.target.value)}
-            className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-semibold rounded-lg p-2 outline-none focus:border-football-blue"
+            className="w-full bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/50 text-slate-800 dark:text-slate-100 text-sm font-bold rounded-xl p-3 outline-none focus:border-football-blue focus:ring-2 focus:ring-football-blue/20 transition-all shadow-sm"
           >
             {players.map(p => (
-              <option key={p.id} value={p.id} className="text-slate-900 bg-white dark:bg-slate-800 dark:text-white">
+              <option key={p.id} value={p.id} className="font-bold">
                 #{p.num} {p.name}
               </option>
             ))}
           </select>
         </div>
         <div>
-          <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 mt-2">
+          <label className="block text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 mt-2">
             IZOH (NOTE)
           </label>
           <div className="flex gap-2">
@@ -134,12 +134,12 @@ const TaggingPanel = () => {
               onChange={(e) => setNote(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') handleSendNote(); }}
               placeholder="Izoh yozing..."
-              className="flex-1 w-full bg-white dark:bg-slate-800 border border-blue-400 text-slate-700 dark:text-slate-200 text-sm font-medium rounded-lg p-2 outline-none focus:border-blue-500"
+              className="flex-1 w-full bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/50 text-slate-800 dark:text-slate-100 text-sm font-bold rounded-xl p-3 outline-none focus:border-football-blue focus:ring-2 focus:ring-football-blue/20 transition-all shadow-sm placeholder:text-slate-400 placeholder:font-medium"
             />
             <button
               onClick={handleSendNote}
               disabled={!note.trim()}
-              className="bg-slate-500 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-bold disabled:opacity-50 transition-colors"
+              className="glass-button bg-football-blue text-white px-5 py-3 rounded-xl text-sm font-bold disabled:opacity-50 transition-all shadow-md shadow-football-blue/20 hover:shadow-football-blue/40"
             >
               Jo'natish
             </button>
@@ -147,8 +147,8 @@ const TaggingPanel = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-3 space-y-4 bg-slate-50/50 dark:bg-slate-900/50">
-        <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-100 dark:border-slate-800 space-y-4">
+      <div className="flex-1 overflow-y-auto p-4 space-y-6 custom-scrollbar bg-slate-50/50 dark:bg-slate-900/50">
+        <div className="glass-panel bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-6">
           {/* AI Simulation Button */}
           <div>
             <div className="text-xs font-bold text-football-blue uppercase tracking-wider mb-2 px-1 flex items-center gap-1">
@@ -162,13 +162,13 @@ const TaggingPanel = () => {
               Simulate AI Goal (At current time)
             </button>
           </div>
-
           {sections.map(section => (
             <div key={section.title}>
-              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
+              <div className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3 px-1 flex items-center gap-2">
+                <span className={`w-2 h-2 rounded-full ${section.category === 'attacking' ? 'bg-football-purple' : 'bg-football-red'}`}></span>
                 {section.title}
               </div>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-3">
                 {section.tags.map(tag => (
                   <TagButton
                     key={tag}
@@ -185,25 +185,25 @@ const TaggingPanel = () => {
 
         {/* Mini Recent Events List inside Tagging Panel */}
         {events.length > 0 && (
-          <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
-            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
+          <div className="glass-panel p-5 rounded-2xl">
+            <div className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4 px-1">
               Oxirgi qo'shilganlar
             </div>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {events.slice(-3).reverse().map(event => (
                 <div 
                   key={event.id} 
                   onClick={() => setCurrentTime(event.time)}
-                  className="text-sm bg-slate-50 dark:bg-slate-800 p-2 rounded-lg border border-slate-100 dark:border-slate-700 flex flex-col gap-1 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                  className="group bg-white/50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-200/50 dark:border-slate-700/50 flex flex-col gap-1.5 cursor-pointer hover:-translate-y-0.5 hover:shadow-md transition-all"
                 >
                   <div className="flex justify-between items-center">
-                    <span className="font-bold text-football-navy dark:text-white">{event.type}</span>
-                    <span className="font-mono text-xs text-slate-400">
+                    <span className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-football-blue transition-colors">{event.type}</span>
+                    <span className="font-mono text-[10px] font-bold text-slate-500 dark:text-slate-400 bg-slate-200/50 dark:bg-slate-700/50 px-2 py-0.5 rounded">
                       {Math.floor(event.time / 60).toString().padStart(2, '0')}:{(event.time % 60).toString().padStart(2, '0')}
                     </span>
                   </div>
                   {event.description && (
-                    <span className="text-xs text-slate-500 dark:text-slate-400 truncate">{event.description}</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400 truncate font-medium">{event.description}</span>
                   )}
                 </div>
               ))}

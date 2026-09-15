@@ -9,18 +9,48 @@ export default {
     extend: {
       colors: {
         football: {
-          navy: '#0f172a',
-          purple: '#6366f1',
+          navy: '#0b1120', // Darker navy for better contrast
+          purple: '#8b5cf6', // More vibrant purple
           blue: '#3b82f6',
-          green: '#22c55e',
-          red: '#ef4444',
+          green: '#10b981', // More vibrant emerald green
+          red: '#f43f5e', // More vibrant rose red
           orange: '#f97316',
           light: '#f8fafc',
-          dark: '#1e293b'
+          dark: '#0f172a'
         }
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.4s ease-out',
+        'slide-up': 'slideUp 0.5s ease-out',
+        'slide-in-right': 'slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+        'float': 'float 3s ease-in-out infinite',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'glow': 'glow 2s ease-in-out infinite alternate',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideInRight: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-5px)' },
+        },
+        glow: {
+          '0%': { boxShadow: '0 0 5px rgba(59, 130, 246, 0.2)' },
+          '100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.6)' },
+        }
       }
     },
   },

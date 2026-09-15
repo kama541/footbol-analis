@@ -57,49 +57,60 @@ const PlaylistDetail = () => {
   };
 
   return (
-    <div className="p-8 h-full flex flex-col bg-slate-50 overflow-hidden">
-      <div className="flex items-center gap-4 mb-8 shrink-0">
+    <div className="p-8 h-full flex flex-col overflow-hidden custom-scrollbar relative z-0">
+      {/* Background ambient light */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-football-purple/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-football-blue/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
+
+      <div className="flex items-center gap-6 mb-10 shrink-0 relative z-10">
         <button 
           onClick={() => navigate(-1)}
-          className="p-2 bg-white border border-slate-200 hover:bg-slate-100 rounded-lg transition-colors text-slate-600 shadow-sm"
+          className="p-3 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 hover:bg-white dark:hover:bg-slate-800 rounded-xl transition-all text-slate-700 dark:text-slate-300 shadow-sm group hover:-translate-x-1"
         >
-          <ArrowLeft size={24} />
+          <ArrowLeft size={24} className="group-hover:scale-110 transition-transform" />
         </button>
-        <h1 className="text-3xl font-bold text-football-navy tracking-tight">{title}</h1>
-        <div className="ml-auto bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm text-sm font-bold text-slate-600">
+        <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight drop-shadow-sm">{title}</h1>
+        <div className="ml-auto glass-panel px-5 py-2.5 rounded-xl border border-slate-200/50 dark:border-slate-700/50 shadow-md text-sm font-black text-slate-700 dark:text-slate-200 bg-white/40 dark:bg-slate-800/40 tracking-wider uppercase flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-football-blue animate-pulse"></span>
           {playlistEvents.length} ta vaziyat
         </div>
       </div>
       
-      <div className="flex-1 overflow-y-auto pr-2">
+      <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar relative z-10">
         {playlistEvents.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-slate-400 bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
-            <Play size={48} className="mb-4 text-slate-300" />
-            <h2 className="text-xl font-bold mb-2 text-slate-600">Hali bu erda voqealar yo'q</h2>
-            <p className="text-sm">O'yin vaqtida "{title}" ga oid vaziyatlarni belgilasangiz shu erda paydo bo'ladi.</p>
+          <div className="h-full flex flex-col items-center justify-center text-slate-400 glass-card rounded-3xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm p-12 text-center animate-fade-in">
+            <div className="w-24 h-24 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-6 shadow-inner">
+              <Play size={48} className="text-slate-300 dark:text-slate-600 ml-2" />
+            </div>
+            <h2 className="text-2xl font-black mb-3 text-slate-700 dark:text-slate-300">Hali bu erda voqealar yo'q</h2>
+            <p className="text-slate-500 dark:text-slate-400 font-medium">O'yin vaqtida "{title}" ga oid vaziyatlarni belgilasangiz shu erda paydo bo'ladi.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {playlistEvents.map(event => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-8">
+            {playlistEvents.map((event, index) => (
               <div 
                 key={event.id}
+                style={{ animationDelay: `${index * 0.05}s` }}
                 onClick={() => handleEventClick(event.time)}
-                className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm hover:shadow-md hover:border-football-blue/50 transition-all cursor-pointer group"
+                className="glass-card rounded-2xl border border-slate-200/50 dark:border-slate-700/50 p-6 hover:-translate-y-1 transition-all cursor-pointer group animate-slide-up relative overflow-hidden"
               >
-                <div className="flex justify-between items-start mb-3">
-                  <div className={`px-2.5 py-1 rounded-md text-xs font-bold tracking-wider ${getBadgeColor(event.category)}`}>
+                {/* Hover gradient effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-football-blue/0 to-football-purple/0 group-hover:from-football-blue/5 group-hover:to-football-purple/5 transition-colors"></div>
+
+                <div className="flex justify-between items-start mb-5 relative z-10">
+                  <div className={`px-3 py-1.5 rounded-md text-[10px] font-black tracking-widest uppercase shadow-sm ${getBadgeColor(event.category)}`}>
                     {event.type}
                   </div>
-                  <div className="flex items-center gap-1.5 text-slate-400 font-mono text-sm font-bold bg-slate-50 px-2 py-1 rounded">
+                  <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 font-mono text-sm font-bold bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-slate-200/50 dark:border-slate-700/50">
                     <Clock size={14} />
                     {formatTime(event.time)}
                   </div>
                 </div>
-                <h3 className="font-bold text-football-navy text-lg mb-1">{event.player}</h3>
-                <p className="text-sm text-slate-500 line-clamp-2">{event.description}</p>
+                <h3 className="font-black text-slate-900 dark:text-white text-xl mb-2 relative z-10">{event.player}</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 font-medium relative z-10">{event.description}</p>
                 
-                <div className="mt-4 flex items-center text-football-blue text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Play size={16} className="mr-1.5" />
+                <div className="mt-6 flex items-center text-football-blue text-sm font-black uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 relative z-10">
+                  <Play size={16} className="mr-2" />
                   Videoni ko'rish
                 </div>
               </div>
