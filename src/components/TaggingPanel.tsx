@@ -4,10 +4,11 @@ import { useMatch, EventCategory } from '../context/MatchContext';
 interface TagButtonProps {
   label: string;
   category: EventCategory;
+  isSelected?: boolean;
   onClick: () => void;
 }
 
-const TagButton = ({ label, category, onClick }: TagButtonProps) => {
+const TagButton = ({ label, category, isSelected, onClick }: TagButtonProps) => {
   const getColors = () => {
     switch (category) {
       case 'attacking': return 'bg-football-purple/10 text-football-purple hover:bg-football-purple hover:text-white border-football-purple/20';
@@ -21,7 +22,7 @@ const TagButton = ({ label, category, onClick }: TagButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className={`h-12 rounded-xl font-bold text-sm tracking-wide border transition-all active:scale-95 ${getColors()}`}
+      className={`h-12 rounded-xl font-bold text-sm tracking-wide border transition-all active:scale-95 ${getColors()} ${isSelected ? 'ring-2 ring-offset-2 ring-football-blue shadow-lg scale-[1.02]' : ''}`}
     >
       {label}
     </button>
@@ -33,36 +34,42 @@ const TaggingPanel = () => {
   const [toast, setToast] = useState<string | null>(null);
   const [selectedPlayerId, setSelectedPlayerId] = useState(players[0].id);
   const [note, setNote] = useState('');
+  const [pendingTag, setPendingTag] = useState<{type: string, category: EventCategory, time: number} | null>(null);
 
   const handleTag = (type: string, category: EventCategory) => {
-    const player = players.find(p => p.id === selectedPlayerId) || players[0];
-    
-    addEvent({
-      type,
-      time: currentTime,
-      player: `${player.name} (#${player.num})`,
-      team: 'Football Club',
-      description: note.trim() ? note.trim() : `Tagged ${type} during live match`,
-      category
-    });
-    setToast(`Added ${type}`);
-    setNote('');
-    setTimeout(() => setToast(null), 2000);
+    // Stage the tag instead of sending immediately
+    setPendingTag({ type, category, time: currentTime });
   };
 
   const handleSendNote = () => {
-    if (!note.trim()) return;
     const player = players.find(p => p.id === selectedPlayerId) || players[0];
     
-    addEvent({
-      type: 'NOTE',
-      time: currentTime,
-      player: `${player.name} (#${player.num})`,
-      team: 'Football Club',
-      description: note.trim(),
-      category: 'other'
-    });
-    setToast('Note added');
+    if (pendingTag) {
+      // Send the staged tag with the note
+      addEvent({
+        type: pendingTag.type,
+        time: pendingTag.time,
+        player: `${player.name} (#${player.num})`,
+        team: 'Football Club',
+        description: note.trim() ? note.trim() : `Tagged ${pendingTag.type} during live match`,
+        category: pendingTag.category
+      });
+      setToast(`Added ${pendingTag.type}`);
+    } else {
+      // Just send a generic note if no tag selected
+      if (!note.trim()) return;
+      addEvent({
+        type: 'NOTE',
+        time: currentTime,
+        player: `${player.name} (#${player.num})`,
+        team: 'Football Club',
+        description: note.trim(),
+        category: 'other' as EventCategory
+      });
+      setToast('Note added');
+    }
+    
+    setPendingTag(null);
     setNote('');
     setTimeout(() => setToast(null), 2000);
   };
@@ -144,6 +151,7 @@ const TaggingPanel = () => {
                   key={tag}
                   label={tag}
                   category={section.category}
+                  isSelected={pendingTag?.type === tag}
                   onClick={() => handleTag(tag, section.category)}
                 />
               ))}
