@@ -9,7 +9,20 @@
     "dark_mode": "Темный режим",
     "light_mode": "Светлый режим",
     "settings": "Настройки",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "training": "Тренировка"
+  },
+  "training": {
+    "title": "Синтез Игрока",
+    "select_player": "Выберите игрока",
+    "heatmap": "Зона действий",
+    "speed": "Показатели скорости",
+    "mistakes": "Анализ ошибок",
+    "max_speed": "Макс. скорость",
+    "avg_speed": "Средняя скорость",
+    "passing_error": "Неточный пас",
+    "possession_lost": "Потеря мяча",
+    "positioning_error": "Позиционная ошибка"
   },
   "header": {
     "analysis": "АНАЛИЗ",

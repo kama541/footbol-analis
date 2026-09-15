@@ -9,7 +9,20 @@
     "dark_mode": "Dark Mode",
     "light_mode": "Light Mode",
     "settings": "Settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "training": "Training"
+  },
+  "training": {
+    "title": "Player Synthesis",
+    "select_player": "Select Player",
+    "heatmap": "Action Heatmap",
+    "speed": "Speed Metrics",
+    "mistakes": "Mistakes Analysis",
+    "max_speed": "Max Speed",
+    "avg_speed": "Average Speed",
+    "passing_error": "Inaccurate Pass",
+    "possession_lost": "Possession Lost",
+    "positioning_error": "Positioning Error"
   },
   "header": {
     "analysis": "ANALYSIS",

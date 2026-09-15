@@ -74,16 +74,24 @@ const TaggingPanel = () => {
     setTimeout(() => setToast(null), 2000);
   };
 
+  const handleAIDetectGoal = () => {
+    addEvent({
+      type: 'GOAL',
+      time: currentTime,
+      player: 'AI Detected (Auto)',
+      team: 'Football Club',
+      description: 'AI automatically detected a goal from the live feed',
+      category: 'other' as EventCategory
+    });
+    setToast('AI Goal Detected!');
+    setTimeout(() => setToast(null), 2000);
+  };
+
   const sections = [
-    {
-      title: 'Attacking',
-      category: 'attacking' as EventCategory,
-      tags: ['GOAL', 'ASSIST', 'SHOT', 'CHANCE', 'CROSS', 'KEY PASS']
-    },
     {
       title: 'Defensive',
       category: 'defensive' as EventCategory,
-      tags: ['TACKLE', 'INTERCEPT', 'BLOCK', 'CLEARANCE', 'ERROR']
+      tags: ['ERROR']
     }
   ];
 
@@ -141,6 +149,20 @@ const TaggingPanel = () => {
 
       <div className="flex-1 overflow-y-auto p-3 space-y-4 bg-slate-50/50 dark:bg-slate-900/50">
         <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-100 dark:border-slate-800 space-y-4">
+          {/* AI Simulation Button */}
+          <div>
+            <div className="text-xs font-bold text-football-blue uppercase tracking-wider mb-2 px-1 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-football-blue animate-pulse"></span>
+              AI Auto-Detection
+            </div>
+            <button
+              onClick={handleAIDetectGoal}
+              className="w-full h-12 rounded-xl font-bold text-sm tracking-wide border transition-all active:scale-95 bg-football-blue/10 text-football-blue hover:bg-football-blue hover:text-white border-football-blue/20"
+            >
+              Simulate AI Goal (At current time)
+            </button>
+          </div>
+
           {sections.map(section => (
             <div key={section.title}>
               <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">

@@ -9,7 +9,20 @@
     "dark_mode": "Tungi Rejim",
     "light_mode": "Kunduzgi Rejim",
     "settings": "Sozlamalar",
-    "logout": "Chiqish"
+    "logout": "Chiqish",
+    "training": "Trenirovka"
+  },
+  "training": {
+    "title": "Futbolchi Sintezi",
+    "select_player": "Futbolchini tanlang",
+    "heatmap": "Harakatlar Zonasi",
+    "speed": "Tezlik Ko'rsatkichlari",
+    "mistakes": "Xatolar Tahlili",
+    "max_speed": "Maksimal tezlik",
+    "avg_speed": "O'rtacha tezlik",
+    "passing_error": "Noaniq pas",
+    "possession_lost": "To'p yo'qotish",
+    "positioning_error": "Pozitsion xato"
   },
   "header": {
     "analysis": "TAHLIL",

@@ -9,6 +9,7 @@ import PlaylistDetail from './pages/PlaylistDetail';
 import Calendar from './pages/Calendar';
 import Users from './pages/Users';
 import Devices from './pages/Devices';
+import Training from './pages/Training';
 import AiInsights from './components/AiInsights';
 import { MatchProvider } from './context/MatchContext';
 
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/matches" element={<Matches />} />
                 <Route path="/playlists" element={<Playlists />} />
                 <Route path="/playlists/:id" element={<PlaylistDetail />} />
+                <Route path="/training" element={<Training />} />
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/users" element={<Users />} />
                 <Route path="/devices" element={<Devices />} />

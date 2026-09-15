@@ -115,6 +115,8 @@ export const MatchProvider = ({ children }: { children: ReactNode }) => {
     return () => clearInterval(interval);
   }, [isPlaying]);
 
+
+
   const togglePlay = () => setIsPlaying(!isPlaying);
   const pauseMatch = () => setIsPlaying(false);
   const setCurrentTime = (time: number) => setCurrentTimeState(time);

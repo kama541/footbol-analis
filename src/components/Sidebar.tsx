@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { PlaySquare, ListVideo, Calendar, Users, MonitorSmartphone, Moon, Sun, Settings, LogOut, Activity, X } from 'lucide-react';
+import { PlaySquare, ListVideo, Calendar, Users, MonitorSmartphone, Moon, Sun, Settings, LogOut, Activity, X, Target } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Sidebar = () => {
@@ -21,6 +21,7 @@ const Sidebar = () => {
     { name: t('sidebar.matches'), path: '/matches', icon: <PlaySquare size={20} /> },
     { name: t('sidebar.live_tagging'), path: '/live', icon: <Activity size={20} /> },
     { name: t('sidebar.playlists'), path: '/playlists', icon: <ListVideo size={20} /> },
+    { name: t('sidebar.training'), path: '/training', icon: <Target size={20} /> },
     { name: t('sidebar.calendar'), path: '/calendar', icon: <Calendar size={20} /> },
     { name: t('sidebar.users'), path: '/users', icon: <Users size={20} /> },
     { name: t('sidebar.devices'), path: '/devices', icon: <MonitorSmartphone size={20} /> },
