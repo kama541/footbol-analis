@@ -121,7 +121,7 @@ export const MatchProvider = ({ children }: { children: ReactNode }) => {
 
   const addEvent = (eventData: Omit<MatchEvent, 'id'>) => {
     const newEvent = { ...eventData, id: Date.now().toString() };
-    setEvents((prev) => [newEvent, ...prev]);
+    setEvents((prev) => [...prev, newEvent]);
 
     // Update player actions if a known player is tagged
     if (eventData.team === 'Football Club') {
