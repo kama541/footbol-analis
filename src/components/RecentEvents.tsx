@@ -20,7 +20,7 @@ const getBadgeColor = (category: EventCategory) => {
 };
 
 const RecentEvents = () => {
-  const { events, deleteEvent, setCurrentTime } = useMatch();
+  const { events, deleteEvent, setCurrentTime, pauseMatch } = useMatch();
   const { t } = useTranslation();
 
   return (
@@ -38,7 +38,10 @@ const RecentEvents = () => {
             <div 
               key={event.id}
               className="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl p-3 shadow-sm hover:border-football-blue/30 transition-colors cursor-pointer"
-              onClick={() => setCurrentTime(event.time)}
+              onClick={() => {
+                setCurrentTime(Math.max(0, event.time - 5));
+                pauseMatch();
+              }}
             >
               <div className="flex justify-between items-start mb-2">
                 <div className="flex items-center gap-2">

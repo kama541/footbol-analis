@@ -42,7 +42,7 @@ const TaggingPanel = () => {
       time: currentTime,
       player: `${player.name} (#${player.num})`,
       team: 'Football Club',
-      description: note.trim() ? note : `Tagged ${type} during live match`,
+      description: note.trim() ? note.trim() : `Tagged ${type} during live match`,
       category
     });
     setToast(`Added ${type}`);
@@ -50,21 +50,28 @@ const TaggingPanel = () => {
     setTimeout(() => setToast(null), 2000);
   };
 
+  const handleSendNote = () => {
+    if (!note.trim()) return;
+    const player = players.find(p => p.id === selectedPlayerId) || players[0];
+    
+    addEvent({
+      type: 'NOTE',
+      time: currentTime,
+      player: `${player.name} (#${player.num})`,
+      team: 'Football Club',
+      description: note.trim(),
+      category: 'other'
+    });
+    setToast('Note added');
+    setNote('');
+    setTimeout(() => setToast(null), 2000);
+  };
+
   const sections = [
-    {
-      title: 'Attacking',
-      category: 'attacking' as EventCategory,
-      tags: ['GOAL', 'ASSIST', 'SHOT', 'CHANCE', 'CROSS', 'KEY PASS']
-    },
     {
       title: 'Defensive',
       category: 'defensive' as EventCategory,
       tags: ['TACKLE', 'INTERCEPT', 'BLOCK', 'CLEARANCE', 'ERROR']
-    },
-    {
-      title: 'Other',
-      category: 'other' as EventCategory,
-      tags: ['FOUL', 'OFFSIDE', 'CORNER', 'FREE KICK', 'CARD', 'SUB']
     }
   ];
 
@@ -79,32 +86,45 @@ const TaggingPanel = () => {
         )}
       </div>
       
-      <div className="p-3 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shrink-0">
-        <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-          Active Player
-        </label>
-        <select 
-          value={selectedPlayerId}
-          onChange={(e) => setSelectedPlayerId(e.target.value)}
-          className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-semibold rounded-lg p-2 outline-none focus:border-football-blue mb-3"
-        >
-          {players.map(p => (
-            <option key={p.id} value={p.id} className="text-slate-900 bg-white dark:bg-slate-800 dark:text-white">
-              #{p.num} {p.name}
-            </option>
-          ))}
-        </select>
-        
-        <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 mt-2">
-          Add Note / Comment
-        </label>
-        <input 
-          type="text"
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-          placeholder="e.g. Bad pass under pressure..."
-          className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-medium rounded-lg p-2 outline-none focus:border-football-blue"
-        />
+      <div className="p-3 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shrink-0 space-y-3">
+        <div>
+          <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+            Active Player
+          </label>
+          <select 
+            value={selectedPlayerId}
+            onChange={(e) => setSelectedPlayerId(e.target.value)}
+            className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-semibold rounded-lg p-2 outline-none focus:border-football-blue"
+          >
+            {players.map(p => (
+              <option key={p.id} value={p.id} className="text-slate-900 bg-white dark:bg-slate-800 dark:text-white">
+                #{p.num} {p.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 mt-2">
+            Izoh (Note)
+          </label>
+          <div className="flex gap-2">
+            <input 
+              type="text"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') handleSendNote(); }}
+              placeholder="Izoh yozing..."
+              className="flex-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-medium rounded-lg p-2 outline-none focus:border-football-blue"
+            />
+            <button
+              onClick={handleSendNote}
+              disabled={!note.trim()}
+              className="bg-football-navy text-white px-3 py-2 rounded-lg text-sm font-bold disabled:opacity-50 transition-colors"
+            >
+              Jo'natish
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-3 space-y-4 bg-white dark:bg-slate-900">

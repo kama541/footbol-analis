@@ -1,13 +1,15 @@
 import React from 'react';
 import { Play } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Playlists = () => {
+  const navigate = useNavigate();
   const playlists = [
-    { title: 'Goals', count: 42, duration: '14:30', color: 'bg-football-purple' },
-    { title: 'Best Attacks', count: 128, duration: '45:15', color: 'bg-football-blue' },
-    { title: 'Defensive Actions', count: 85, duration: '28:40', color: 'bg-football-red' },
-    { title: 'Set Pieces', count: 56, duration: '21:05', color: 'bg-football-orange' },
-    { title: 'Individual Player Analysis', count: 24, duration: '08:50', color: 'bg-football-green' },
+    { id: 'goals', title: 'Goals', count: 42, duration: '14:30', color: 'bg-football-purple' },
+    { id: 'best-attacks', title: 'Best Attacks', count: 128, duration: '45:15', color: 'bg-football-blue' },
+    { id: 'defensive-actions', title: 'Defensive Actions', count: 85, duration: '28:40', color: 'bg-football-red' },
+    { id: 'set-pieces', title: 'Set Pieces', count: 56, duration: '21:05', color: 'bg-football-orange' },
+    { id: 'individual-player-analysis', title: 'Individual Player Analysis', count: 24, duration: '08:50', color: 'bg-football-green' },
   ];
 
   return (
@@ -21,7 +23,7 @@ const Playlists = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {playlists.map((pl, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all group cursor-pointer hover:-translate-y-1">
+          <div key={i} onClick={() => navigate(`/playlists/${pl.id}`)} className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all group cursor-pointer hover:-translate-y-1">
             <div className={`h-32 ${pl.color} relative overflow-hidden flex items-center justify-center`}>
               <div className="absolute inset-0 bg-black/10"></div>
               <Play size={40} className="text-white/50 group-hover:text-white transition-colors" />

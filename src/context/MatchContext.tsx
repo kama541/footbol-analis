@@ -48,6 +48,7 @@ interface MatchContextType {
   players: PlayerStat[];
   matchStats: MatchStatsType;
   togglePlay: () => void;
+  pauseMatch: () => void;
   setCurrentTime: (time: number) => void;
   addEvent: (event: Omit<MatchEvent, 'id'>) => void;
   deleteEvent: (id: string) => void;
@@ -115,6 +116,7 @@ export const MatchProvider = ({ children }: { children: ReactNode }) => {
   }, [isPlaying]);
 
   const togglePlay = () => setIsPlaying(!isPlaying);
+  const pauseMatch = () => setIsPlaying(false);
   const setCurrentTime = (time: number) => setCurrentTimeState(time);
 
   const addEvent = (eventData: Omit<MatchEvent, 'id'>) => {
@@ -193,7 +195,7 @@ export const MatchProvider = ({ children }: { children: ReactNode }) => {
   return (
     <MatchContext.Provider value={{ 
       currentTime, isPlaying, events, players, matchStats, 
-      togglePlay, setCurrentTime, addEvent, deleteEvent, updateEvent, exportToJSON 
+      togglePlay, pauseMatch, setCurrentTime, addEvent, deleteEvent, updateEvent, exportToJSON 
     }}>
       {children}
     </MatchContext.Provider>
