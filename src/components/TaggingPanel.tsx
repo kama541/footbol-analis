@@ -30,7 +30,7 @@ const TagButton = ({ label, category, isSelected, onClick }: TagButtonProps) => 
 };
 
 const TaggingPanel = () => {
-  const { addEvent, currentTime, players } = useMatch();
+  const { addEvent, currentTime, players, events } = useMatch();
   const [toast, setToast] = useState<string | null>(null);
   const [selectedPlayerId, setSelectedPlayerId] = useState(players[0].id);
   const [note, setNote] = useState('');
