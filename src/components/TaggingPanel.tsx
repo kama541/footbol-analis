@@ -139,25 +139,51 @@ const TaggingPanel = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-3 space-y-4 bg-white dark:bg-slate-900">
-        {sections.map(section => (
-          <div key={section.title}>
-            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
-              {section.title}
+      <div className="flex-1 overflow-y-auto p-3 space-y-4 bg-slate-50/50 dark:bg-slate-900/50">
+        <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-100 dark:border-slate-800 space-y-4">
+          {sections.map(section => (
+            <div key={section.title}>
+              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
+                {section.title}
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {section.tags.map(tag => (
+                  <TagButton
+                    key={tag}
+                    label={tag}
+                    category={section.category}
+                    isSelected={pendingTag?.type === tag}
+                    onClick={() => handleTag(tag, section.category)}
+                  />
+                ))}
+              </div>
             </div>
-            <div className="grid grid-cols-2 gap-2">
-              {section.tags.map(tag => (
-                <TagButton
-                  key={tag}
-                  label={tag}
-                  category={section.category}
-                  isSelected={pendingTag?.type === tag}
-                  onClick={() => handleTag(tag, section.category)}
-                />
+          ))}
+        </div>
+
+        {/* Mini Recent Events List inside Tagging Panel */}
+        {events.length > 0 && (
+          <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
+              Oxirgi qo'shilganlar
+            </div>
+            <div className="space-y-2">
+              {events.slice(-3).reverse().map(event => (
+                <div key={event.id} className="text-sm bg-slate-50 dark:bg-slate-800 p-2 rounded-lg border border-slate-100 dark:border-slate-700 flex flex-col gap-1">
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold text-football-navy dark:text-white">{event.type}</span>
+                    <span className="font-mono text-xs text-slate-400">
+                      {Math.floor(event.time / 60).toString().padStart(2, '0')}:{(event.time % 60).toString().padStart(2, '0')}
+                    </span>
+                  </div>
+                  {event.description && (
+                    <span className="text-xs text-slate-500 dark:text-slate-400 truncate">{event.description}</span>
+                  )}
+                </div>
               ))}
             </div>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
