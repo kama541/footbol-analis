@@ -30,7 +30,7 @@ const TagButton = ({ label, category, isSelected, onClick }: TagButtonProps) => 
 };
 
 const TaggingPanel = () => {
-  const { addEvent, currentTime, players, events } = useMatch();
+  const { addEvent, currentTime, players, events, setCurrentTime } = useMatch();
   const [toast, setToast] = useState<string | null>(null);
   const [selectedPlayerId, setSelectedPlayerId] = useState(players[0].id);
   const [note, setNote] = useState('');
@@ -169,7 +169,11 @@ const TaggingPanel = () => {
             </div>
             <div className="space-y-2">
               {events.slice(-3).reverse().map(event => (
-                <div key={event.id} className="text-sm bg-slate-50 dark:bg-slate-800 p-2 rounded-lg border border-slate-100 dark:border-slate-700 flex flex-col gap-1">
+                <div 
+                  key={event.id} 
+                  onClick={() => setCurrentTime(event.time)}
+                  className="text-sm bg-slate-50 dark:bg-slate-800 p-2 rounded-lg border border-slate-100 dark:border-slate-700 flex flex-col gap-1 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                >
                   <div className="flex justify-between items-center">
                     <span className="font-bold text-football-navy dark:text-white">{event.type}</span>
                     <span className="font-mono text-xs text-slate-400">
