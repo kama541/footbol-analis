@@ -9,29 +9,29 @@ const GameTimeline = () => {
 
   const getColor = (category: EventCategory) => {
     switch (category) {
-      case 'attacking': return 'bg-football-purple border-white';
-      case 'defensive': return 'bg-football-red border-white';
-      case 'positive': return 'bg-football-green border-white';
-      case 'other': return 'bg-football-orange border-white';
-      default: return 'bg-slate-400 border-white';
+      case 'attacking': return 'bg-football-green border-[#1a2e1f]';
+      case 'defensive': return 'bg-football-red border-[#311717]';
+      case 'positive': return 'bg-football-purple border-[#1e1c31]';
+      case 'other': return 'bg-football-orange border-[#291e10]';
+      default: return 'bg-slate-400 border-slate-700';
     }
   };
 
-  const markers = [0, 15, 30, 45, 60, 75, 90];
+  const markers = [0, 10, 20, 30, 40, 45, 50, 60, 70, 80, 90];
 
   return (
-    <div className="h-full w-full flex flex-col justify-center px-8 relative overflow-hidden group">
+    <div className="h-full w-full flex flex-col justify-center px-4 relative group">
       {/* Timeline Base */}
-      <div className="relative h-2 bg-slate-100 rounded-full w-full">
+      <div className="relative h-2.5 bg-slate-800 rounded-full w-full mt-4 border border-slate-700 shadow-inner">
         {/* Progress Bar */}
         <div 
-          className="absolute top-0 left-0 h-full bg-slate-300 rounded-full transition-all duration-300"
+          className="absolute top-0 left-0 h-full bg-slate-600 rounded-full transition-all duration-300"
           style={{ width: `${(currentTime / duration) * 100}%` }}
         ></div>
 
         {/* Current Time Indicator */}
         <div 
-          className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-football-blue rounded-full shadow border-2 border-white cursor-pointer z-10 transition-all duration-300"
+          className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-football-blue rounded-full shadow-[0_0_10px_rgba(37,99,235,0.8)] border-2 border-[#161920] cursor-pointer z-10 transition-all duration-300"
           style={{ left: `calc(${(currentTime / duration) * 100}% - 8px)` }}
         ></div>
 
@@ -39,16 +39,16 @@ const GameTimeline = () => {
         {markers.map(minute => (
           <div 
             key={minute} 
-            className="absolute top-4 -translate-x-1/2 text-xs font-bold text-slate-400"
+            className="absolute -top-6 -translate-x-1/2 text-[10px] font-mono font-bold text-slate-500"
             style={{ left: `${(minute / 90) * 100}%` }}
           >
-            {minute}'
+            {minute.toString().padStart(2, '0')}:00
           </div>
         ))}
         {markers.map(minute => (
           <div 
             key={`tick-${minute}`} 
-            className="absolute top-0 h-2 w-0.5 bg-slate-200 -translate-x-1/2"
+            className="absolute top-0 h-2.5 w-px bg-slate-600 -translate-x-1/2"
             style={{ left: `${(minute / 90) * 100}%` }}
           ></div>
         ))}
@@ -59,13 +59,17 @@ const GameTimeline = () => {
           return (
             <div 
               key={event.id}
-              className={`absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full border-2 cursor-pointer hover:scale-125 transition-transform group/event shadow-sm ${getColor(event.category)}`}
-              style={{ left: `calc(${positionPercent}% - 7px)` }}
+              className={`absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-sm border-2 cursor-pointer hover:scale-150 transition-transform group/event shadow-lg z-20 ${getColor(event.category)}`}
+              style={{ left: `calc(${positionPercent}% - 7px)`, transform: 'translateY(-50%) rotate(45deg)' }}
               onClick={() => setCurrentTime(event.time)}
             >
               {/* Tooltip */}
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-football-navy text-white text-xs px-2 py-1 rounded opacity-0 group-hover/event:opacity-100 whitespace-nowrap pointer-events-none transition-opacity z-20">
-                <span className="font-bold">{event.type}</span> • {Math.floor(event.time / 60)}'
+              <div className="absolute bottom-[150%] left-1/2 -translate-x-1/2 mb-1 bg-[#1a1d24] border border-slate-700 text-slate-200 text-xs px-2 py-1.5 rounded opacity-0 group-hover/event:opacity-100 whitespace-nowrap pointer-events-none transition-opacity z-30 flex flex-col items-center shadow-2xl" style={{ transform: 'translateX(-50%) rotate(-45deg)' }}>
+                <span className="font-bold text-white mb-0.5">{event.type}</span>
+                <span className="text-[9px] text-slate-400 font-mono">
+                  {Math.floor(event.time / 60).toString().padStart(2, '0')}:{(event.time % 60).toString().padStart(2, '0')}
+                </span>
+                {event.player && <span className="text-[10px] text-slate-300 mt-1">{event.player}</span>}
               </div>
             </div>
           );

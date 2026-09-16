@@ -12,9 +12,9 @@ const Devices = () => {
   ];
 
   return (
-    <div className="p-8 h-full overflow-y-auto">
+    <div className="p-8 h-full overflow-y-auto bg-[#0f1115]">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold text-football-navy dark:text-white tracking-tight">Devices</h1>
+        <h1 className="text-3xl font-bold text-white tracking-tight">Devices</h1>
         <button 
           onClick={() => setShowAddDevice(true)}
           className="flex items-center gap-2 px-4 py-2 bg-football-blue text-white rounded-lg font-semibold hover:bg-football-blue/90 transition-colors shadow-sm text-sm"
@@ -26,15 +26,15 @@ const Devices = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {devices.map((device, i) => (
-          <div key={i} className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group flex flex-col">
+          <div key={i} className="bg-[#161920] rounded-2xl p-6 border border-slate-800 shadow-sm hover:shadow-md hover:border-slate-600 transition-all group flex flex-col">
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
-                <div className={`p-3 rounded-xl ${device.status === 'Online' ? 'bg-football-blue/10 text-football-blue' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'}`}>
+                <div className={`p-3 rounded-xl ${device.status === 'Online' ? 'bg-football-blue/10 text-football-blue' : 'bg-slate-800 text-slate-400'}`}>
                   <MonitorSmartphone size={24} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-football-navy dark:text-white">{device.name}</h3>
-                  <span className="text-xs text-slate-500 dark:text-slate-400">{device.type} • {device.location}</span>
+                  <h3 className="font-bold text-white">{device.name}</h3>
+                  <span className="text-xs text-slate-400">{device.type} • {device.location}</span>
                 </div>
               </div>
               <div className="flex flex-col items-end gap-2">
@@ -43,30 +43,30 @@ const Devices = () => {
                     <Wifi size={14} /> Online
                   </span>
                 ) : (
-                  <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+                  <span className="flex items-center gap-1.5 text-xs font-bold text-slate-400 bg-slate-800 px-2 py-1 rounded">
                     <WifiOff size={14} /> Offline
                   </span>
                 )}
               </div>
             </div>
 
-            <div className="mt-auto grid grid-cols-2 gap-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <div className="mt-auto grid grid-cols-2 gap-4 pt-4 border-t border-slate-800">
               <div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Battery</div>
-                <div className="flex items-center gap-2 font-semibold text-slate-700 dark:text-slate-300">
+                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Battery</div>
+                <div className="flex items-center gap-2 font-semibold text-slate-300">
                   {device.battery !== null ? (
                     <>
                       <Battery size={16} className={device.battery < 20 ? 'text-red-500' : 'text-football-green'} />
                       {device.battery}%
                     </>
                   ) : (
-                    <span className="text-slate-400">Plugged In</span>
+                    <span className="text-slate-500">Plugged In</span>
                   )}
                 </div>
               </div>
               <div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Last Sync</div>
-                <div className="flex items-center gap-2 font-semibold text-slate-700 dark:text-slate-300">
+                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Last Sync</div>
+                <div className="flex items-center gap-2 font-semibold text-slate-300">
                   <RefreshCw size={14} className="text-football-blue" />
                   {device.lastSync}
                 </div>
@@ -76,7 +76,7 @@ const Devices = () => {
             {/* Action button inside card */}
             <button 
               onClick={() => alert(`Pinging ${device.name}...`)}
-              className="mt-4 w-full py-2 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/50 dark:hover:bg-slate-800 rounded-lg text-xs font-bold text-slate-500 dark:text-slate-400 transition-colors"
+              className="mt-4 w-full py-2 bg-slate-800/50 hover:bg-slate-800 rounded-lg text-xs font-bold text-slate-400 transition-colors border border-slate-800 hover:border-slate-700"
             >
               Ping Device
             </button>

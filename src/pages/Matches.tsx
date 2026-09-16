@@ -19,18 +19,18 @@ const Matches = () => {
   };
 
   return (
-    <div className="p-8 h-full overflow-y-auto custom-scrollbar relative z-0">
+    <div className="p-8 h-full overflow-y-auto custom-scrollbar relative z-0 bg-[#0f1115]">
       {/* Background ambient light */}
       <div className="absolute top-20 right-20 w-96 h-96 bg-football-blue/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
       <div className="absolute bottom-20 left-20 w-96 h-96 bg-football-purple/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
 
       <div className="flex items-center justify-between mb-10">
-        <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight drop-shadow-sm">
+        <h1 className="text-4xl font-black text-white tracking-tight drop-shadow-sm">
           Matches
         </h1>
         <button 
           onClick={() => setShowNewMatch(true)}
-          className="glass-button flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-football-blue to-football-purple text-white rounded-xl font-bold shadow-lg shadow-football-blue/25 hover:shadow-football-blue/40 text-sm tracking-wide"
+          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-football-blue to-football-purple text-white rounded-xl font-bold shadow-lg shadow-football-blue/25 hover:shadow-football-blue/40 text-sm tracking-wide"
         >
           <Calendar size={18} />
           New Match
@@ -39,15 +39,15 @@ const Matches = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
         {matches.map((match) => (
-          <div key={match.id} className="glass-card rounded-3xl p-6 flex flex-col group relative overflow-hidden">
+          <div key={match.id} className="bg-[#161920] rounded-3xl p-6 border border-slate-800 flex flex-col group relative overflow-hidden shadow-lg hover:border-slate-600 transition-all">
             {/* Card gradient effect */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-football-blue/10 to-transparent rounded-full blur-2xl -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-500"></div>
 
             <div className="flex justify-between items-center mb-8 relative z-10">
-              <span className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">{match.comp}</span>
+              <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">{match.comp}</span>
               <span className={`text-[10px] font-black px-2.5 py-1 rounded-md tracking-wider uppercase shadow-sm ${
                 match.status === 'LIVE' ? 'bg-football-red/15 text-football-red shadow-football-red/20 animate-pulse' :
-                match.status === 'FT' ? 'bg-slate-100 dark:bg-slate-800 text-slate-500' :
+                match.status === 'FT' ? 'bg-slate-800 text-slate-400' :
                 'bg-football-blue/15 text-football-blue shadow-football-blue/20'
               }`}>
                 {match.status}
@@ -56,19 +56,19 @@ const Matches = () => {
 
             <div className="flex items-center justify-between mb-10 relative z-10">
               <div className="flex flex-col items-center gap-3 w-28">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 border border-slate-200/50 dark:border-slate-700/50 flex items-center justify-center font-black text-2xl text-slate-400 shadow-md group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1">
+                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 flex items-center justify-center font-black text-2xl text-slate-500 shadow-md group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1">
                   {match.homeLogo}
                 </div>
-                <span className="font-bold text-slate-900 dark:text-white text-center text-sm">{match.home}</span>
+                <span className="font-bold text-white text-center text-sm">{match.home}</span>
               </div>
               
               <div className="flex flex-col items-center flex-1">
                 {match.status !== 'UPCOMING' ? (
-                  <div className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter drop-shadow-md">
+                  <div className="text-4xl font-black text-white tracking-tighter drop-shadow-md">
                     {match.homeScore} - {match.awayScore}
                   </div>
                 ) : (
-                  <div className="text-2xl font-black text-slate-400 dark:text-slate-500">
+                  <div className="text-2xl font-black text-slate-500">
                     {match.time}
                   </div>
                 )}
@@ -76,10 +76,10 @@ const Matches = () => {
               </div>
 
               <div className="flex flex-col items-center gap-3 w-28">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 border border-slate-200/50 dark:border-slate-700/50 flex items-center justify-center font-black text-2xl text-slate-400 shadow-md group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1">
+                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 flex items-center justify-center font-black text-2xl text-slate-500 shadow-md group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1">
                   {match.awayLogo}
                 </div>
-                <span className="font-bold text-slate-900 dark:text-white text-center text-sm">{match.away}</span>
+                <span className="font-bold text-white text-center text-sm">{match.away}</span>
               </div>
             </div>
 
@@ -88,7 +88,7 @@ const Matches = () => {
               className={`mt-auto w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 relative overflow-hidden z-10 ${
                 match.status === 'LIVE' || match.status === 'FT' 
                   ? 'bg-football-blue text-white shadow-lg shadow-football-blue/25 hover:shadow-football-blue/40 hover:-translate-y-0.5' 
-                  : 'bg-slate-100 dark:bg-slate-800/50 text-slate-400 cursor-not-allowed border border-slate-200 dark:border-slate-700/50'
+                  : 'bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-800'
               }`}
               disabled={match.status === 'UPCOMING'}
             >
