@@ -3,8 +3,10 @@ import VideoPlayer from '../components/VideoPlayer';
 import TaggingPanel from '../components/TaggingPanel';
 import TacticalPitch from '../components/TacticalPitch';
 import { useTranslation } from 'react-i18next';
-import { Maximize2, Columns } from 'lucide-react';
-
+import { Maximize2, Columns, LayoutDashboard } from 'lucide-react';
+import MatchStats from '../components/MatchStats';
+import RecentEvents from '../components/RecentEvents';
+import PlayerTracking from '../components/PlayerTracking';
 const LiveTagging = () => {
   const { t } = useTranslation();
   const [viewMode, setViewMode] = useState<'video' | 'pitch' | 'split'>('video');
