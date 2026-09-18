@@ -92,9 +92,9 @@ const TaggingPanel = () => {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-[#161920] relative z-10 overflow-hidden">
+    <div className="flex flex-col h-full bg-[#1e2235] relative z-10 overflow-hidden">
       {/* Player and Note Entry */}
-      <div className="p-3 border-b border-slate-800 bg-[#1a1d24] shrink-0 space-y-3">
+      <div className="p-3 border-b border-slate-800 bg-[#252a3d] shrink-0 space-y-3">
         <div>
           <label className="block text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">
             Active Player

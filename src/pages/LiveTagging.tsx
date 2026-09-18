@@ -7,10 +7,15 @@ import { Maximize2, Columns, LayoutDashboard } from 'lucide-react';
 import MatchStats from '../components/MatchStats';
 import RecentEvents from '../components/RecentEvents';
 import PlayerTracking from '../components/PlayerTracking';
+import { useMatch } from '../context/MatchContext';
+
 const LiveTagging = () => {
   const { t } = useTranslation();
+  const { matchStats, currentTime, isPlaying } = useMatch();
   const [viewMode, setViewMode] = useState<'video' | 'pitch' | 'split'>('video');
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const formatTime = (s: number) => `${Math.floor(s/60).toString().padStart(2,'0')}:${(s%60).toString().padStart(2,'0')}`;
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -34,13 +39,13 @@ const LiveTagging = () => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-[#0f1115] text-slate-200 overflow-hidden font-sans text-sm" ref={containerRef}>
+    <div className="h-full flex flex-col bg-[#1a1e2e] text-slate-200 overflow-hidden font-sans text-sm" ref={containerRef}>
       
       {/* Main 3-column area */}
       <div className="flex-1 flex flex-col md:flex-row overflow-hidden border-b border-slate-800">
         
         {/* LEFT TOOLBAR (Tagging Panel) */}
-        <div className="w-full md:w-56 border-r border-slate-800 bg-[#161920] flex flex-col shrink-0 overflow-y-auto custom-scrollbar">
+        <div className="w-full md:w-56 border-r border-slate-800 bg-[#1e2235] flex flex-col shrink-0 overflow-y-auto custom-scrollbar">
           <TaggingPanel />
         </div>
 
@@ -48,19 +53,19 @@ const LiveTagging = () => {
         <div className="flex-1 flex flex-col bg-black overflow-hidden relative shadow-2xl z-10">
           
           {/* Match Info Bar */}
-          <div className="h-14 bg-[#161920] border-b border-slate-800 flex items-center justify-between px-4 shrink-0 shadow-sm z-20">
+          <div className="h-14 bg-[#1e2235] border-b border-slate-800 flex items-center justify-between px-4 shrink-0 shadow-sm z-20">
             <div className="flex items-center gap-4">
               <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Uzb Super League</span>
               <div className="flex items-center gap-2">
                 <span className="font-black text-slate-300">FC</span>
-                <span className="bg-slate-800 text-white font-mono px-2 py-0.5 rounded text-sm">2</span>
+                <span className="bg-slate-800 text-white font-mono px-2 py-0.5 rounded text-sm">{matchStats.fcScore}</span>
                 <span className="text-slate-600">-</span>
-                <span className="bg-slate-800 text-white font-mono px-2 py-0.5 rounded text-sm">1</span>
+                <span className="bg-slate-800 text-white font-mono px-2 py-0.5 rounded text-sm">{matchStats.nvScore}</span>
                 <span className="font-black text-slate-300">NV</span>
               </div>
-              <span className="text-football-red text-[10px] font-bold flex items-center gap-1.5 ml-2">
-                <span className="w-1.5 h-1.5 bg-football-red rounded-full animate-pulse"></span>
-                67:32
+              <span className={`text-[10px] font-bold flex items-center gap-1.5 ml-2 ${isPlaying ? 'text-football-red' : 'text-slate-500'}`}>
+                <span className={`w-1.5 h-1.5 rounded-full ${isPlaying ? 'bg-football-red animate-pulse' : 'bg-slate-600'}`}></span>
+                {formatTime(currentTime)}
               </span>
             </div>
             
@@ -99,7 +104,7 @@ const LiveTagging = () => {
         </div>
 
         {/* RIGHT SIDEBAR (Analysis & Filters) */}
-        <div className="w-full md:w-80 border-l border-slate-800 bg-[#161920] flex flex-col shrink-0 overflow-y-auto custom-scrollbar shadow-xl z-20">
+        <div className="w-full md:w-80 border-l border-slate-800 bg-[#1e2235] flex flex-col shrink-0 overflow-y-auto custom-scrollbar shadow-xl z-20">
           
           <div className="p-4 border-b border-slate-800">
             <h3 className="font-bold text-slate-300 text-xs uppercase tracking-wider mb-3 flex items-center gap-2">

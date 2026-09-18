@@ -27,3 +27,14 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# Python and Backend
+venv/
+venv
+backend/venv/
+backend/__pycache__/
+__pycache__/
+backend/uploads/
+backend/results/
+*.pt
+.DS_Store

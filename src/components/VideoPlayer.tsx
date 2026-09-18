@@ -1,15 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Play, Pause, FastForward, Rewind, Maximize, Volume2, VolumeX, Upload, Settings, Keyboard, MonitorPlay, StepForward, StepBack, SkipBack, SkipForward } from 'lucide-react';
+import { Play, Pause, FastForward, Rewind, Maximize, Volume2, VolumeX, Upload, Settings, Keyboard, MonitorPlay, StepForward, StepBack, SkipBack, SkipForward, Loader2 } from 'lucide-react';
 import { useMatch, EventCategory } from '../context/MatchContext';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 
 const VideoPlayer = () => {
-  const { isPlaying, togglePlay, currentTime, setCurrentTime, events } = useMatch();
-  const [videoSrc, setVideoSrc] = useState<string | null>(null);
+  const { isPlaying, togglePlay, currentTime, setCurrentTime, events, videoSrc, setVideoSrc } = useMatch();
   const [playbackRate, setPlaybackRate] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -46,11 +47,79 @@ const VideoPlayer = () => {
     }
   }, [currentTime]);
 
-  const handleVideoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleVideoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setVideoSrc(url);
+    if (!file) return;
+
+    // Reject known non-football formats (music videos, movies short clips, etc.)
+    const name = file.name.toLowerCase();
+    const footballKeywords = ['match', 'game', 'football', 'soccer', 'futbol', 'league', 'cup', 'goal', 'highlights', 'oyun', 'maç', 'o\'yin', 'qo\'shiq'];
+    const nonFootballKeywords = ['music', 'song', 'movie', 'clip', 'meme', 'funny', 'tiktok', 'reel', 'shorts', 'vlog', 'tutorial', 'cooking', 'dance'];
+
+    const hasNonFootball = nonFootballKeywords.some(k => name.includes(k));
+    if (hasNonFootball) {
+      setUploadError('⛔ Bu video futbol o\'yiniga o\'xshamaydi. Faqat futbol match videolarini yuklang.');
+      e.target.value = '';
+      return;
+    }
+
+    setUploadError(null);
+    setIsAnalyzing(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('http://127.0.0.1:8000/api/analyze/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Server error during upload');
+      }
+
+      const data = await response.json();
+      const jobId = data.job_id;
+      
+      if (!jobId) {
+        throw new Error('Analysis failed: No job_id returned');
+      }
+
+      const pollInterval = 1000;
+      const timeout = 10 * 60 * 1000; // 10 minutes timeout
+      const startTime = Date.now();
+      let isCompleted = false;
+
+      while (!isCompleted) {
+        if (Date.now() - startTime > timeout) {
+          throw new Error('Analysis timed out after 10 minutes');
+        }
+
+        const res = await fetch(`http://127.0.0.1:8000/api/analyze/result/${jobId}`);
+        if (!res.ok) {
+           throw new Error('Failed to fetch job status');
+        }
+        const jobData = await res.json();
+
+        if (jobData.status === 'completed') {
+          setVideoSrc(`http://127.0.0.1:8000${jobData.video_url}`);
+          setCurrentTime(0);
+          isCompleted = true;
+          break;
+        } else if (jobData.status === 'failed') {
+          throw new Error(jobData.error || 'Analysis failed on backend');
+        }
+
+        await new Promise(resolve => setTimeout(resolve, pollInterval));
+      }
+
+    } catch (err) {
+      console.error(err);
+      setUploadError(err instanceof Error ? err.message : 'Failed to analyze video. Ensure backend is running.');
+    } finally {
+      setIsAnalyzing(false);
+      e.target.value = '';
     }
   };
 
@@ -122,27 +191,20 @@ const VideoPlayer = () => {
   };
 
   return (
-    <div ref={containerRef} className="w-full h-full flex flex-col bg-[#0f1115] relative group">
+    <div ref={containerRef} className="w-full h-full flex flex-col bg-[#1a1e2e] relative group">
       
       {/* Live AI Tracking Overlay (Only when playing video) */}
-      {videoSrc && (
+      {videoSrc && isPlaying && (
         <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-          {/* Top Left Camera Info */}
-          <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm text-white font-mono text-[10px] px-2 py-1 rounded shadow-sm border border-white/10">
-            <div>CAM X: {(Math.sin(currentTime / 5) * 0.05).toFixed(2)}</div>
-            <div>CAM Y: {(Math.cos(currentTime / 5) * 0.02).toFixed(2)}</div>
+          {/* Top Left - Live indicator */}
+          <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-black/70 backdrop-blur-sm text-white font-mono text-[10px] px-2 py-1 rounded border border-red-500/40">
+            <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+            AI TRACKING
           </div>
-          
-          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-             <defs>
-              <marker id="arrowhead-red" markerWidth="4" markerHeight="4" refX="2" refY="2" orient="auto">
-                <polygon points="0 0, 4 2, 0 4" fill="#ef4444" />
-              </marker>
-            </defs>
-            <ellipse cx="65" cy="55" rx="3" ry="1" fill="none" stroke="#4ade80" strokeWidth="0.4" />
-            <text x="65" y="51" fill="white" fontSize="1.8" textAnchor="middle" className="drop-shadow-md font-black">7</text>
-            <line x1="60" y1="55" x2="50" y2="55" stroke="#ef4444" strokeWidth="0.5" markerEnd="url(#arrowhead-red)" />
-          </svg>
+          {/* Top Right - Time */}
+          <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white font-mono text-[10px] px-2 py-1 rounded border border-white/10">
+            {formatTime(currentTime)}
+          </div>
         </div>
       )}
 
@@ -163,20 +225,38 @@ const VideoPlayer = () => {
             <div className="absolute top-0 bottom-0 left-1/2 w-px bg-white/20"></div>
             
             <div className="z-10 bg-black/60 backdrop-blur-md p-6 rounded-xl border border-white/10 text-center shadow-2xl">
-              <Upload size={32} className="mx-auto mb-4 text-football-blue" />
-              <h3 className="text-lg font-black text-white mb-2 uppercase tracking-wide">Upload Match Video</h3>
-              <p className="text-xs text-slate-400 font-medium mb-6">Supported formats: MP4, WebM, MOV</p>
-              <label className="bg-football-blue hover:bg-blue-600 text-white px-6 py-2.5 rounded text-sm font-bold cursor-pointer transition-colors inline-block">
-                Select Video
-                <input type="file" accept="video/mp4,video/webm,video/quicktime" className="hidden" onChange={handleVideoUpload} />
-              </label>
+              {isAnalyzing ? (
+                <>
+                  <Loader2 size={32} className="mx-auto mb-4 text-football-blue animate-spin" />
+                  <h3 className="text-lg font-black text-white mb-2 uppercase tracking-wide">Analyzing Match Footage...</h3>
+                  <p className="text-xs text-slate-400 font-medium mb-5">This may take several minutes depending on video length.</p>
+                </>
+              ) : (
+                <>
+                  <Upload size={32} className="mx-auto mb-4 text-football-blue" />
+                  <h3 className="text-lg font-black text-white mb-2 uppercase tracking-wide">Upload Match Video</h3>
+                  <p className="text-xs text-slate-400 font-medium mb-2">Supported formats: MP4, WebM, MOV</p>
+                  <p className="text-xs text-slate-500 mb-5">Upload to automatically track players and extract stats</p>
+                  
+                  {uploadError && (
+                    <div className="mb-4 bg-red-500/20 border border-red-500/40 text-red-400 text-xs px-3 py-2 rounded-lg">
+                      {uploadError}
+                    </div>
+                  )}
+                  
+                  <label className="bg-football-blue hover:bg-blue-600 text-white px-6 py-2.5 rounded text-sm font-bold cursor-pointer transition-colors inline-block">
+                    Select Video
+                    <input type="file" accept="video/mp4,video/webm,video/quicktime,video/x-matroska,video/avi" className="hidden" onChange={handleVideoUpload} />
+                  </label>
+                </>
+              )}
             </div>
           </div>
         )}
       </div>
 
       {/* Custom Professional Player Controls */}
-      <div className="bg-[#161920] border-t border-slate-800 p-3 flex flex-col gap-2 shrink-0 z-20">
+      <div className="bg-[#1e2235] border-t border-slate-800 p-3 flex flex-col gap-2 shrink-0 z-20">
         
         {/* Top Control Bar */}
         <div className="flex items-center justify-between text-slate-300">

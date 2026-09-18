@@ -16,8 +16,8 @@ const MatchStats = () => {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-[#161920] relative z-10 overflow-hidden border-r border-slate-800">
-      <div className="p-4 border-b border-slate-800 bg-[#1a1d24] sticky top-0 flex justify-between items-center z-20">
+    <div className="flex flex-col h-full bg-[#1e2235] relative z-10 overflow-hidden border-r border-slate-800">
+      <div className="p-4 border-b border-slate-800 bg-[#252a3d] sticky top-0 flex justify-between items-center z-20">
         <h2 className="font-black text-white tracking-tight text-lg">{t('stats.match_stats')}</h2>
       </div>
       <div className="flex-1 overflow-y-auto p-5 space-y-6 custom-scrollbar relative z-10">
@@ -28,11 +28,11 @@ const MatchStats = () => {
         </div>
         
         {stats.map((stat, i) => {
-          const total = Number(stat.fc) + Number(stat.nv) || 1;
-          const fcPercent = (Number(stat.fc) / total) * 100;
+          const total = Number(stat.fc) + Number(stat.nv);
+          const fcPercent = total === 0 ? 50 : (Number(stat.fc) / total) * 100;
           
           return (
-            <div key={i} className="group p-4 rounded-2xl bg-[#1a1d24] border border-slate-800 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300">
+            <div key={i} className="group p-4 rounded-2xl bg-[#252a3d] border border-slate-800 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300">
               <div className="flex justify-between items-center text-xs font-black mb-3">
                 <span className="text-football-blue w-10 text-left text-sm drop-shadow-sm">{stat.fc}{stat.format}</span>
                 <span className="text-slate-400 uppercase tracking-widest text-[10px]">{stat.label}</span>

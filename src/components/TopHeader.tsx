@@ -87,8 +87,7 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
-                  `flex items-center gap-1.5 px-3 py-1 rounded transition-colors whitespace-nowrap ${
-                    isActive ? 'bg-black text-[#FFE600]' : 'hover:bg-yellow-300'
+                  `flex items-center gap-1.5 px-3 py-1 rounded transition-colors whitespace-nowrap ${isActive ? 'bg-black text-[#FFE600]' : 'hover:bg-yellow-300'
                   }`
                 }
               >
@@ -97,15 +96,15 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
               </NavLink>
             ))}
           </div>
-          
+
           <div className="flex items-center gap-3 shrink-0 pl-4 border-l border-yellow-500 ml-4 relative">
-            <button 
+            <button
               onClick={() => setShowSettingsModal(true)}
               className="flex items-center gap-1 hover:text-slate-800 transition-colors"
             >
               <Settings size={14} /> <span>{t('sidebar.settings', 'Настройки')}</span>
             </button>
-            <button 
+            <button
               onClick={handleLogoutClick}
               className="flex items-center gap-1 text-red-700 hover:text-red-900 transition-colors font-bold"
             >
@@ -115,7 +114,7 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
         </div>
 
         {/* Secondary Dark Bar - Actions & Search */}
-        <div className="h-10 bg-[#0f1115] border-b border-slate-800 px-4 flex items-center justify-between shadow-lg relative">
+        <div className="h-10 bg-[#1a1e2e] border-b border-slate-800 px-4 flex items-center justify-between shadow-lg relative">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               <div className="w-5 h-5 bg-[#FFE600] rounded flex items-center justify-center font-black text-black text-[9px] shadow-[0_0_8px_rgba(255,230,0,0.4)]">
@@ -128,19 +127,19 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="flex items-center bg-[#161920] border border-slate-800 rounded px-2 py-1 w-48 transition-colors focus-within:border-[#FFE600]">
+            <div className="flex items-center bg-[#1e2235] border border-slate-800 rounded px-2 py-1 w-48 transition-colors focus-within:border-[#FFE600]">
               <Search size={12} className="text-slate-500 mr-2" />
-              <input 
-                type="text" 
-                placeholder="Search..." 
+              <input
+                type="text"
+                placeholder="Search..."
                 className="bg-transparent border-none outline-none text-[11px] text-slate-200 w-full placeholder:text-slate-600 font-medium"
               />
             </div>
             <div className="w-px h-4 bg-slate-700"></div>
-            
+
             {/* Profile Section */}
             <div className="relative" ref={profileMenuRef}>
-              <div 
+              <div
                 className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
               >
@@ -149,10 +148,10 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
                 </div>
                 <span className="text-[10px] font-bold text-white">{userName}</span>
               </div>
-              
+
               {/* Profile Dropdown Menu */}
               {showProfileMenu && (
-                <div className="absolute right-0 top-full mt-3 w-48 bg-[#161920] border border-slate-800 rounded-md shadow-2xl py-1 z-50 animate-in fade-in slide-in-from-top-2">
+                <div className="absolute right-0 top-full mt-3 w-48 bg-[#1e2235] border border-slate-800 rounded-md shadow-2xl py-1 z-50 animate-in fade-in slide-in-from-top-2">
                   <div className="px-4 py-2 border-b border-slate-800 mb-1">
                     <p className="text-sm font-bold text-white">{userName}</p>
                     <p className="text-[10px] text-slate-400">analyst@footballvision.com</p>
@@ -177,20 +176,20 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
       {/* Settings Modal */}
       {showSettingsModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center animate-in fade-in">
-          <div className="bg-[#161920] border border-slate-800 rounded-xl shadow-2xl w-full max-w-md overflow-hidden flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-[#1a1d24]">
+          <div className="bg-[#1e2235] border border-slate-800 rounded-xl shadow-2xl w-full max-w-md overflow-hidden flex flex-col">
+            <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-[#252a3d]">
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
                 <Settings size={18} className="text-[#FFE600]" />
                 {t('sidebar.settings', 'Settings')}
               </h2>
-              <button 
+              <button
                 onClick={() => setShowSettingsModal(false)}
                 className="text-slate-400 hover:text-white transition-colors p-1"
               >
                 <X size={18} />
               </button>
             </div>
-            
+
             <div className="p-6 space-y-6">
               {/* Language Settings */}
               <div>
@@ -198,13 +197,13 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
                   <Globe size={12} /> Language / Язык
                 </h3>
                 <div className="grid grid-cols-2 gap-2">
-                  <button 
+                  <button
                     onClick={() => i18n.changeLanguage('en')}
                     className={`p-2 rounded text-sm font-bold border transition-colors ${i18n.language === 'en' ? 'bg-[#FFE600] text-black border-yellow-500' : 'bg-slate-900 text-slate-300 border-slate-700 hover:border-slate-500'}`}
                   >
                     English
                   </button>
-                  <button 
+                  <button
                     onClick={() => i18n.changeLanguage('ru')}
                     className={`p-2 rounded text-sm font-bold border transition-colors ${i18n.language === 'ru' ? 'bg-[#FFE600] text-black border-yellow-500' : 'bg-slate-900 text-slate-300 border-slate-700 hover:border-slate-500'}`}
                   >
@@ -212,7 +211,7 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
                   </button>
                 </div>
               </div>
-              
+
               {/* Appearance Settings */}
               <div>
                 <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 flex items-center gap-2">
@@ -244,9 +243,9 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
                 </div>
               </div>
             </div>
-            
-            <div className="p-4 border-t border-slate-800 bg-[#1a1d24] flex justify-end">
-              <button 
+
+            <div className="p-4 border-t border-slate-800 bg-[#252a3d] flex justify-end">
+              <button
                 onClick={() => setShowSettingsModal(false)}
                 className="px-4 py-2 bg-[#FFE600] text-black text-sm font-bold rounded hover:bg-yellow-400 transition-colors"
               >
@@ -259,7 +258,7 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
       {/* Logout Modal */}
       {showLogoutModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center animate-in fade-in">
-          <div className="bg-[#161920] border border-slate-800 rounded-xl shadow-2xl w-full max-w-sm overflow-hidden flex flex-col">
+          <div className="bg-[#1e2235] border border-slate-800 rounded-xl shadow-2xl w-full max-w-sm overflow-hidden flex flex-col">
             <div className="p-6 text-center">
               <div className="w-12 h-12 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <LogOut size={24} />
@@ -272,13 +271,13 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
               </p>
             </div>
             <div className="flex border-t border-slate-800">
-              <button 
+              <button
                 onClick={() => setShowLogoutModal(false)}
                 className="flex-1 py-3 text-sm font-bold text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
               >
                 Bekor qilish
               </button>
-              <button 
+              <button
                 onClick={confirmLogout}
                 className="flex-1 py-3 text-sm font-bold text-red-500 hover:text-red-400 hover:bg-red-500/10 border-l border-slate-800 transition-colors"
               >
@@ -292,20 +291,20 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
       {/* Profile Modal */}
       {showProfileModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center animate-in fade-in">
-          <div className="bg-[#161920] border border-slate-800 rounded-xl shadow-2xl w-full max-w-md overflow-hidden flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-[#1a1d24]">
+          <div className="bg-[#1e2235] border border-slate-800 rounded-xl shadow-2xl w-full max-w-md overflow-hidden flex flex-col">
+            <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-[#252a3d]">
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
                 <User size={18} className="text-[#FFE600]" />
                 Mening Profilim
               </h2>
-              <button 
+              <button
                 onClick={() => setShowProfileModal(false)}
                 className="text-slate-400 hover:text-white transition-colors p-1"
               >
                 <X size={18} />
               </button>
             </div>
-            
+
             <div className="p-6">
               <div className="flex flex-col items-center mb-6">
                 <div className="relative group">
@@ -317,24 +316,24 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
                     )}
                   </div>
                   {isEditingProfile && (
-                    <button 
+                    <button
                       onClick={() => fileInputRef.current?.click()}
                       className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity mb-3 border-4 border-transparent"
                     >
                       <Camera size={24} />
                     </button>
                   )}
-                  <input 
-                    type="file" 
-                    ref={fileInputRef} 
-                    onChange={handleAvatarChange} 
-                    accept="image/*" 
-                    className="hidden" 
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleAvatarChange}
+                    accept="image/*"
+                    className="hidden"
                   />
                 </div>
-                
+
                 {isEditingProfile ? (
-                  <input 
+                  <input
                     type="text"
                     value={editName}
                     onChange={(e) => setEditName(e.target.value)}
@@ -353,7 +352,7 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
                   PRO MEMBER
                 </span>
               </div>
-              
+
               <div className="space-y-4">
                 <div className="bg-slate-900/50 p-4 rounded border border-slate-800">
                   <h4 className="text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Statistika</h4>
@@ -380,17 +379,17 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
                 </div>
               </div>
             </div>
-            
-            <div className="p-4 border-t border-slate-800 bg-[#1a1d24] flex justify-end gap-2">
+
+            <div className="p-4 border-t border-slate-800 bg-[#252a3d] flex justify-end gap-2">
               {isEditingProfile ? (
                 <>
-                  <button 
+                  <button
                     onClick={() => { setIsEditingProfile(false); setEditName(userName); }}
                     className="px-4 py-2 bg-slate-800 text-white text-sm font-bold rounded hover:bg-slate-700 transition-colors"
                   >
                     Bekor qilish
                   </button>
-                  <button 
+                  <button
                     onClick={saveProfile}
                     className="px-4 py-2 bg-[#FFE600] text-black text-sm font-bold rounded hover:bg-yellow-400 transition-colors"
                   >
@@ -398,7 +397,7 @@ const TopHeader = ({ onOpenAi }: TopHeaderProps) => {
                   </button>
                 </>
               ) : (
-                <button 
+                <button
                   onClick={() => setShowProfileModal(false)}
                   className="px-4 py-2 bg-slate-800 text-white text-sm font-bold rounded hover:bg-slate-700 transition-colors"
                 >
