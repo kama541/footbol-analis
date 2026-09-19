@@ -100,7 +100,7 @@ const TacticalPitch = () => {
 
   return (
     <div 
-      className="flex-1 bg-[#234d31] flex flex-col relative border-[4px] md:border-[10px] border-slate-900 w-full h-full overflow-hidden select-none"
+      className="flex-1 bg-[#161920] flex flex-col relative border-[4px] md:border-[10px] border-slate-900 w-full h-full overflow-hidden select-none"
       ref={pitchRef}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
@@ -141,7 +141,7 @@ const TacticalPitch = () => {
             setIsDrawMode(!isDrawMode);
             setDrawingStart(null);
           }}
-          className={`px-3 py-1.5 rounded text-xs font-bold uppercase tracking-widest backdrop-blur-sm border transition-colors ${isDrawMode ? 'bg-football-blue text-white border-football-blue' : 'bg-black/60 text-white/80 border-white/10 hover:bg-black hover:text-white'}`}
+          className={`px-3 py-1.5 rounded text-xs font-bold uppercase tracking-widest backdrop-blur-sm border transition-colors ${isDrawMode ? 'bg-[#FFE600] text-black border-[#FFE600]' : 'bg-black/60 text-white/80 border-white/10 hover:bg-black hover:text-white'}`}
         >
           {isDrawMode ? 'Drawing...' : 'Draw Lines'}
         </button>
@@ -195,7 +195,7 @@ const TacticalPitch = () => {
         <div 
           key={marker.id}
           onPointerDown={(e) => handlePointerDown(e, marker.id)}
-          className={`absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center transition-transform ${isDrawMode ? 'cursor-crosshair hover:scale-125' : 'cursor-grab active:cursor-grabbing hover:scale-110'} ${draggingId === marker.id ? 'z-50 scale-125' : 'z-30'} ${drawingStart === marker.id ? 'ring-4 ring-football-blue rounded-full' : ''}`}
+          className={`absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center transition-transform ${isDrawMode ? 'cursor-crosshair hover:scale-125' : 'cursor-grab active:cursor-grabbing hover:scale-110'} ${draggingId === marker.id ? 'z-50 scale-125' : 'z-30'} ${drawingStart === marker.id ? 'ring-4 ring-[#FFE600] rounded-full' : ''}`}
           style={{ 
             left: `${marker.x}%`, 
             top: `${marker.y}%`,
@@ -205,12 +205,12 @@ const TacticalPitch = () => {
           }}
         >
           {marker.team === 'home' && (
-            <div className="w-full h-full bg-football-blue rounded-full border-2 border-white flex items-center justify-center shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
-              <span className="text-white text-[10px] font-black">{marker.number}</span>
+            <div className="w-full h-full bg-[#FFE600] rounded-full border-2 border-[#161920] flex items-center justify-center shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+              <span className="text-black text-[10px] font-black">{marker.number}</span>
             </div>
           )}
           {marker.team === 'away' && (
-            <div className="w-full h-full bg-football-red rounded-full border-2 border-white flex items-center justify-center shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+            <div className="w-full h-full bg-slate-700 rounded-full border-2 border-white flex items-center justify-center shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
               <span className="text-white text-[10px] font-black">{marker.number}</span>
             </div>
           )}

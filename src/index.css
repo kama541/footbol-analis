@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100;
+    @apply bg-[#0f1115] text-slate-200;
   }
 }
 
@@ -19,24 +19,24 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+  @apply bg-slate-700 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-400 dark:bg-slate-600;
+  @apply bg-slate-600;
 }
 
 /* Glassmorphism Classes */
 .glass-panel {
-  @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-800/50 shadow-xl;
+  @apply bg-[#161920]/80 backdrop-blur-md border border-slate-800 shadow-xl;
 }
 
 .glass-card {
-  @apply bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-white/40 dark:border-slate-700/50 shadow-lg hover:shadow-xl transition-all duration-300;
+  @apply bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 shadow-lg hover:shadow-xl transition-all duration-300;
 }
 
 .glass-button {
-  @apply relative overflow-hidden bg-white/20 dark:bg-slate-800/30 backdrop-blur-sm border border-white/30 dark:border-slate-700/50 shadow-sm transition-all hover:bg-white/30 dark:hover:bg-slate-800/50 hover:shadow-md active:scale-95;
+  @apply relative overflow-hidden bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 shadow-sm transition-all hover:bg-slate-800/50 hover:shadow-md active:scale-95;
 }
 
 .glass-button::after {

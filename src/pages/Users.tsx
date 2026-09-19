@@ -94,7 +94,7 @@ const Users = () => {
         <h1 className="text-3xl font-bold text-white tracking-tight">Users</h1>
         <button
           onClick={handleOpenAdd}
-          className="flex items-center gap-2 px-4 py-2 bg-football-blue text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors shadow-sm text-sm"
+          className="flex items-center gap-2 px-4 py-2 bg-[#FFE600] text-black rounded-lg font-semibold hover:bg-yellow-500 transition-colors shadow-sm text-sm"
         >
           <Plus size={18} />
           Add User
@@ -123,7 +123,7 @@ const Users = () => {
                 <tr key={user.id} className="hover:bg-slate-800/50 transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-football-blue/20 text-football-blue flex items-center justify-center font-bold">
+                      <div className="w-10 h-10 rounded-full bg-[#FFE600]/20 text-[#FFE600] flex items-center justify-center font-bold">
                         {user.avatar}
                       </div>
                       <div>
@@ -140,9 +140,9 @@ const Users = () => {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2">
-                      <span className={`w-2 h-2 rounded-full ${user.status === 'Online' ? 'bg-football-green animate-pulse' : 'bg-slate-500'}`}></span>
+                      <span className={`w-2 h-2 rounded-full ${user.status === 'Online' ? 'bg-[#FFE600] animate-pulse' : 'bg-slate-500'}`}></span>
                       <div>
-                        <div className={`font-semibold ${user.status === 'Online' ? 'text-football-green' : 'text-slate-400'}`}>
+                        <div className={`font-semibold ${user.status === 'Online' ? 'text-[#FFE600]' : 'text-slate-400'}`}>
                           {user.status}
                         </div>
                         <div className="text-[10px] text-slate-500 font-medium flex items-center gap-1 mt-0.5">
@@ -182,7 +182,7 @@ const Users = () => {
           <div className="bg-[#1e2235] rounded-2xl p-6 w-[350px] shadow-2xl animate-fade-in border border-slate-800">
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-football-blue/20 text-football-blue flex items-center justify-center font-bold text-lg">
+                <div className="w-10 h-10 rounded-full bg-[#FFE600]/20 text-[#FFE600] flex items-center justify-center font-bold text-lg">
                   {selectedUser.avatar}
                 </div>
                 <div>

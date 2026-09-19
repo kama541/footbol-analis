@@ -63,9 +63,9 @@ const LiveTagging = () => {
                 <span className="bg-slate-800 text-white font-mono px-2 py-0.5 rounded text-sm">{matchStats.nvScore}</span>
                 <span className="font-black text-slate-300">NV</span>
               </div>
-              <span className={`text-[10px] font-bold flex items-center gap-1.5 ml-2 ${isPlaying ? 'text-football-red' : 'text-slate-500'}`}>
-                <span className={`w-1.5 h-1.5 rounded-full ${isPlaying ? 'bg-football-red animate-pulse' : 'bg-slate-600'}`}></span>
-                {formatTime(currentTime)}
+              <span className="text-[#FFE600] text-[10px] font-bold flex items-center gap-1.5 ml-2">
+                <span className="w-1.5 h-1.5 bg-[#FFE600] rounded-full animate-pulse"></span>
+                67:32
               </span>
             </div>
             
@@ -73,7 +73,7 @@ const LiveTagging = () => {
               <div className="flex items-center bg-slate-900 rounded p-1 border border-slate-800">
                 <button 
                   onClick={() => setViewMode('video')}
-                  className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-colors ${viewMode === 'video' ? 'bg-football-blue text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-colors ${viewMode === 'video' ? 'bg-[#FFE600] text-black shadow-sm' : 'text-slate-400 hover:text-white'}`}
                 >
                   Video
                 </button>
