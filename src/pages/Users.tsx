@@ -21,11 +21,11 @@ const initialUsers: UserData[] = [
 
 const Users = () => {
   const [usersList, setUsersList] = useState<UserData[]>(initialUsers);
-  
+
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
-  
+
   const [editingUserId, setEditingUserId] = useState<number | null>(null);
   const [formData, setFormData] = useState({ name: '', role: 'Analyst', email: '' });
 
@@ -61,10 +61,10 @@ const Users = () => {
 
   const handleEditSubmit = () => {
     if (!formData.name.trim() || !editingUserId) return;
-    setUsersList(usersList.map(u => 
-      u.id === editingUserId 
-      ? { ...u, name: formData.name, role: formData.role, email: formData.email, avatar: formData.name.charAt(0).toUpperCase() } 
-      : u
+    setUsersList(usersList.map(u =>
+      u.id === editingUserId
+        ? { ...u, name: formData.name, role: formData.role, email: formData.email, avatar: formData.name.charAt(0).toUpperCase() }
+        : u
     ));
     setShowEditModal(false);
     setEditingUserId(null);
@@ -79,20 +79,20 @@ const Users = () => {
 
   const handleChangeRole = () => {
     if (selectedUser) {
-      setUsersList(usersList.map(u => 
-        u.id === selectedUser.id 
-        ? { ...u, role: u.role === 'Viewer' ? 'Editor' : 'Viewer', access: u.access === 'Viewer' ? 'Editor' : 'Viewer' } 
-        : u
+      setUsersList(usersList.map(u =>
+        u.id === selectedUser.id
+          ? { ...u, role: u.role === 'Viewer' ? 'Editor' : 'Viewer', access: u.access === 'Viewer' ? 'Editor' : 'Viewer' }
+          : u
       ));
       setSelectedUser(null);
     }
   };
 
   return (
-    <div className="p-8 h-full overflow-y-auto bg-[#0f1115]">
+    <div className="p-8 h-full overflow-y-auto bg-[#1a1e2e]">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold text-white tracking-tight">Users</h1>
-        <button 
+        <button
           onClick={handleOpenAdd}
           className="flex items-center gap-2 px-4 py-2 bg-[#FFE600] text-black rounded-lg font-semibold hover:bg-yellow-500 transition-colors shadow-sm text-sm"
         >
@@ -101,7 +101,7 @@ const Users = () => {
         </button>
       </div>
 
-      <div className="bg-[#161920] rounded-2xl border border-slate-800 shadow-lg overflow-hidden min-h-[400px]">
+      <div className="bg-[#1e2235] rounded-2xl border border-slate-800 shadow-lg overflow-hidden min-h-[400px]">
         {usersList.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-slate-500">
             <User size={48} className="mb-4 opacity-50" />
@@ -109,7 +109,7 @@ const Users = () => {
           </div>
         ) : (
           <table className="w-full text-left text-sm border-collapse">
-            <thead className="bg-[#0f1115] text-xs text-slate-400 uppercase tracking-wider">
+            <thead className="bg-[#1a1e2e] text-xs text-slate-400 uppercase tracking-wider">
               <tr>
                 <th className="px-6 py-4 font-semibold border-b border-slate-800">User</th>
                 <th className="px-6 py-4 font-semibold border-b border-slate-800">Role</th>
@@ -154,16 +154,15 @@ const Users = () => {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-1.5">
                       <Shield size={14} className={user.access === 'Admin' ? 'text-[#FFE600]' : 'text-slate-500'} />
-                      <span className={`text-xs font-bold px-2 py-1 rounded ${
-                        user.access === 'Admin' ? 'bg-[#FFE600]/10 text-[#FFE600] border border-[#FFE600]/20' : 
-                        'bg-slate-800 text-slate-300 border border-slate-700'
-                      }`}>
+                      <span className={`text-xs font-bold px-2 py-1 rounded ${user.access === 'Admin' ? 'bg-[#FFE600]/10 text-[#FFE600] border border-[#FFE600]/20' :
+                          'bg-slate-800 text-slate-300 border border-slate-700'
+                        }`}>
                         {user.access}
                       </span>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button 
+                    <button
                       onClick={() => setSelectedUser(user)}
                       className="p-2 hover:bg-slate-700 rounded-lg text-slate-500 transition-colors"
                     >
@@ -180,7 +179,7 @@ const Users = () => {
       {/* User Options Modal */}
       {selectedUser && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center">
-          <div className="bg-[#161920] rounded-2xl p-6 w-[350px] shadow-2xl animate-fade-in border border-slate-800">
+          <div className="bg-[#1e2235] rounded-2xl p-6 w-[350px] shadow-2xl animate-fade-in border border-slate-800">
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-[#FFE600]/20 text-[#FFE600] flex items-center justify-center font-bold text-lg">
@@ -195,7 +194,7 @@ const Users = () => {
                 <X size={20} />
               </button>
             </div>
-            
+
             <div className="space-y-2">
               <button onClick={handleOpenEdit} className="w-full text-left px-4 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors text-sm font-semibold border border-slate-800 flex items-center justify-between group">
                 Tahrirlash (Edit)
@@ -217,13 +216,13 @@ const Users = () => {
       {/* Add / Edit User Modal */}
       {(showAddModal || showEditModal) && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[70] flex items-center justify-center">
-          <div className="bg-[#161920] rounded-2xl p-6 w-[400px] shadow-2xl animate-fade-in border border-slate-800">
+          <div className="bg-[#1e2235] rounded-2xl p-6 w-[400px] shadow-2xl animate-fade-in border border-slate-800">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold text-white">
                 {showEditModal ? 'Foydalanuvchini tahrirlash' : 'Yangi foydalanuvchi'}
               </h2>
-              <button 
-                onClick={() => { setShowAddModal(false); setShowEditModal(false); }} 
+              <button
+                onClick={() => { setShowAddModal(false); setShowEditModal(false); }}
                 className="text-slate-400 hover:text-white transition-colors"
               >
                 <X size={20} />
@@ -232,17 +231,17 @@ const Users = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-slate-400 mb-1">To'liq ism (Full Name)</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="Ism Familiya" 
-                  className="w-full border border-slate-700 rounded-lg px-3 py-2 bg-slate-900 text-white outline-none focus:border-[#FFE600]" 
+                  placeholder="Ism Familiya"
+                  className="w-full border border-slate-700 rounded-lg px-3 py-2 bg-slate-900 text-white outline-none focus:border-[#FFE600]"
                 />
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-400 mb-1">Rol (Role)</label>
-                <select 
+                <select
                   value={formData.role}
                   onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                   className="w-full border border-slate-700 rounded-lg px-3 py-2 bg-slate-900 text-white outline-none focus:border-[#FFE600]"
@@ -256,24 +255,24 @@ const Users = () => {
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-400 mb-1">Elektron pochta (Email)</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="email@fc.uz" 
-                  className="w-full border border-slate-700 rounded-lg px-3 py-2 bg-slate-900 text-white outline-none focus:border-[#FFE600]" 
+                  placeholder="email@fc.uz"
+                  className="w-full border border-slate-700 rounded-lg px-3 py-2 bg-slate-900 text-white outline-none focus:border-[#FFE600]"
                 />
               </div>
             </div>
             <div className="flex gap-3 mt-8">
-              <button 
-                onClick={() => { setShowAddModal(false); setShowEditModal(false); }} 
+              <button
+                onClick={() => { setShowAddModal(false); setShowEditModal(false); }}
                 className="flex-1 py-2 bg-slate-800 text-white rounded-lg font-bold hover:bg-slate-700 transition-colors"
               >
                 Bekor qilish
               </button>
-              <button 
-                onClick={showEditModal ? handleEditSubmit : handleAddSubmit} 
+              <button
+                onClick={showEditModal ? handleEditSubmit : handleAddSubmit}
                 className="flex-1 py-2 bg-[#FFE600] text-black rounded-lg font-bold hover:bg-yellow-500 transition-colors"
               >
                 {showEditModal ? 'Saqlash' : "Qo'shish"}

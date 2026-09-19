@@ -13,7 +13,7 @@ const Playlists = () => {
   ];
 
   return (
-    <div className="p-8 h-full overflow-y-auto custom-scrollbar relative z-0 bg-[#0f1115]">
+    <div className="p-8 h-full overflow-y-auto custom-scrollbar relative z-0 bg-[#1a1e2e]">
       {/* Background ambient light */}
       <div className="absolute top-20 right-20 w-96 h-96 bg-[#FFE600]/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
       <div className="absolute bottom-20 left-20 w-96 h-96 bg-transparent blur-[120px] pointer-events-none rounded-full -z-10"></div>
@@ -28,7 +28,7 @@ const Playlists = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {playlists.map((pl, i) => (
-          <div key={i} onClick={() => navigate(`/playlists/${pl.id}`)} className="bg-[#161920] rounded-3xl overflow-hidden group cursor-pointer border border-slate-800 shadow-xl hover:border-slate-600 transition-all">
+          <div key={i} onClick={() => navigate(`/playlists/${pl.id}`)} className="bg-[#1e2235] rounded-3xl overflow-hidden group cursor-pointer border border-slate-800 shadow-xl hover:border-slate-600 transition-all">
             <div className={`h-40 ${pl.color} relative overflow-hidden flex items-center justify-center transition-all duration-500`}>
               <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 group-hover:opacity-80 transition-opacity"></div>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 mix-blend-overlay"></div>

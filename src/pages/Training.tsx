@@ -170,7 +170,7 @@ const Training = () => {
   };
 
   return (
-    <div className="h-full w-full overflow-y-auto custom-scrollbar bg-[#0f1115]">
+    <div className="h-full w-full overflow-y-auto custom-scrollbar bg-[#1a1e2e]">
       <div className="p-6 md:p-8 animate-fade-in pb-24 lg:pb-8 max-w-7xl mx-auto min-h-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
@@ -185,7 +185,7 @@ const Training = () => {
 
         <div className="relative w-full md:w-72">
           <select 
-            className="w-full appearance-none bg-[#161920] border border-slate-800 text-slate-200 py-3 px-4 pr-8 rounded-xl focus:outline-none focus:border-[#FFE600] shadow-sm font-medium"
+            className="w-full appearance-none bg-[#1e2235] border border-slate-800 text-slate-200 py-3 px-4 pr-8 rounded-xl focus:outline-none focus:border-[#FFE600] shadow-sm font-medium"
             value={selectedPlayerId}
             onChange={(e) => setSelectedPlayerId(Number(e.target.value))}
           >
@@ -212,11 +212,11 @@ const Training = () => {
               <p className="text-[#FFE600] font-bold uppercase tracking-widest text-xs mt-1">{player.position}</p>
             </div>
             <div className="flex gap-4 w-full md:w-auto">
-              <div className="flex-1 bg-[#0f1115] rounded-xl p-4 text-center border border-slate-800 min-w-[120px]">
+              <div className="flex-1 bg-[#1a1e2e] rounded-xl p-4 text-center border border-slate-800 min-w-[120px]">
                 <div className="text-[10px] text-slate-500 uppercase tracking-wider font-bold mb-1">{t('training.avg_speed', 'O\'rtacha tezlik')}</div>
                 <div className="text-2xl font-black text-white">{player.avgSpeed} <span className="text-xs font-normal text-slate-500">km/h</span></div>
               </div>
-              <div className="flex-1 bg-[#0f1115] rounded-xl p-4 text-center border border-slate-800 min-w-[120px] shadow-[inset_0_0_20px_rgba(255,230,0,0.03)]">
+              <div className="flex-1 bg-[#1a1e2e] rounded-xl p-4 text-center border border-slate-800 min-w-[120px] shadow-[inset_0_0_20px_rgba(255,230,0,0.03)]">
                 <div className="text-[10px] text-[#FFE600]/70 uppercase tracking-wider font-bold mb-1">{t('training.max_speed', 'Maksimal tezlik')}</div>
                 <div className="text-2xl font-black text-[#FFE600]">{player.maxSpeed} <span className="text-xs font-normal text-slate-500">km/h</span></div>
               </div>
@@ -225,7 +225,7 @@ const Training = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Camera/Recording Section */}
-            <div className="col-span-1 lg:col-span-2 bg-[#161920] rounded-2xl shadow-lg border border-slate-800 p-6 flex flex-col">
+            <div className="col-span-1 lg:col-span-2 bg-[#1e2235] rounded-2xl shadow-lg border border-slate-800 p-6 flex flex-col">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-lg bg-[#FFE600]/20 flex items-center justify-center text-[#FFE600]">
                   <Camera size={20} />
@@ -291,7 +291,7 @@ const Training = () => {
             </div>
 
             {/* Mistakes Analysis */}
-            <div className="col-span-1 bg-[#161920] rounded-2xl shadow-lg border border-slate-800 p-6 flex flex-col relative overflow-hidden">
+            <div className="col-span-1 bg-[#1e2235] rounded-2xl shadow-lg border border-slate-800 p-6 flex flex-col relative overflow-hidden">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center text-red-500">
                   <AlertTriangle size={20} />
@@ -300,14 +300,14 @@ const Training = () => {
               </div>
               
               {analysisStatus === 'analyzing' && (
-                <div className="absolute inset-0 z-20 bg-[#161920]/80 backdrop-blur-sm flex flex-col items-center justify-center">
+                <div className="absolute inset-0 z-20 bg-[#1e2235]/80 backdrop-blur-sm flex flex-col items-center justify-center">
                   <div className="w-10 h-10 border-4 border-red-500 border-t-transparent rounded-full animate-spin mb-3"></div>
                   <div className="text-red-500 font-bold text-sm">Xatolar hisoblanmoqda...</div>
                 </div>
               )}
 
               <div className={`flex-1 flex flex-col gap-4 transition-opacity duration-500 ${analysisStatus === 'analyzing' ? 'opacity-20' : 'opacity-100'}`}>
-                <div className="bg-[#0f1115] p-4 rounded-xl border border-slate-800">
+                <div className="bg-[#1a1e2e] p-4 rounded-xl border border-slate-800">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-slate-300 font-medium">{t('training.passing_error', 'Noaniq pas')}</span>
                     <span className="bg-red-500/20 text-red-400 font-bold px-2 py-1 rounded-md text-sm">{player.errors} marta</span>
@@ -317,7 +317,7 @@ const Training = () => {
                   </div>
                 </div>
 
-                <div className="bg-[#0f1115] p-4 rounded-xl border border-slate-800">
+                <div className="bg-[#1a1e2e] p-4 rounded-xl border border-slate-800">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-slate-300 font-medium">{t('training.possession_lost', 'To\'p yo\'qotish')}</span>
                     <span className="bg-orange-500/20 text-orange-400 font-bold px-2 py-1 rounded-md text-sm">{player.possessionLoss} marta</span>
@@ -327,7 +327,7 @@ const Training = () => {
                   </div>
                 </div>
                 
-                <div className="bg-[#0f1115] p-4 rounded-xl border border-slate-800">
+                <div className="bg-[#1a1e2e] p-4 rounded-xl border border-slate-800">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-slate-300 font-medium">{t('training.positioning_error', 'Pozitsion xato')}</span>
                     <span className="bg-yellow-500/20 text-yellow-400 font-bold px-2 py-1 rounded-md text-sm">1 marta</span>
@@ -340,7 +340,7 @@ const Training = () => {
             </div>
 
             {/* Heatmap / Zone Analysis */}
-            <div className="col-span-1 lg:col-span-2 bg-[#161920] rounded-2xl shadow-lg border border-slate-800 p-6 relative overflow-hidden">
+            <div className="col-span-1 lg:col-span-2 bg-[#1e2235] rounded-2xl shadow-lg border border-slate-800 p-6 relative overflow-hidden">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-600">
                   <Map size={20} />
@@ -395,7 +395,7 @@ const Training = () => {
             </div>
 
             {/* AI Training Plan / Summary */}
-            <div className="col-span-1 bg-[#161920] rounded-2xl shadow-lg border border-slate-800 p-6 flex flex-col relative overflow-hidden">
+            <div className="col-span-1 bg-[#1e2235] rounded-2xl shadow-lg border border-slate-800 p-6 flex flex-col relative overflow-hidden">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-lg bg-[#FFE600]/10 flex items-center justify-center text-[#FFE600]">
                   <Zap size={20} />

@@ -79,7 +79,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className="p-8 h-full overflow-y-auto flex flex-col relative z-0 custom-scrollbar bg-[#0f1115]">
+    <div className="p-8 h-full overflow-y-auto flex flex-col relative z-0 custom-scrollbar bg-[#1a1e2e]">
       {/* Ambient background glows */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#FFE600]/5 blur-[120px] pointer-events-none rounded-full -z-10"></div>
       <div className="absolute bottom-40 left-20 w-80 h-80 bg-transparent blur-[100px] pointer-events-none rounded-full -z-10"></div>
@@ -92,13 +92,13 @@ const Calendar = () => {
           <div className="flex bg-slate-900 rounded-xl p-1.5 border border-slate-800 shadow-sm">
             <button
               onClick={() => setViewMode('week')}
-              className={`px-5 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${viewMode === 'week' ? 'bg-[#161920] shadow-md text-white border border-slate-700' : 'text-slate-500 hover:text-white'}`}
+              className={`px-5 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${viewMode === 'week' ? 'bg-[#1e2235] shadow-md text-white border border-slate-700' : 'text-slate-500 hover:text-white'}`}
             >
               1 Haftalik
             </button>
             <button
               onClick={() => setViewMode('month')}
-              className={`px-5 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${viewMode === 'month' ? 'bg-[#161920] shadow-md text-white border border-slate-700' : 'text-slate-500 hover:text-white'}`}
+              className={`px-5 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${viewMode === 'month' ? 'bg-[#1e2235] shadow-md text-white border border-slate-700' : 'text-slate-500 hover:text-white'}`}
             >
               Oylik
             </button>
@@ -122,7 +122,7 @@ const Calendar = () => {
 
       <div className="flex-1 rounded-3xl overflow-hidden flex flex-col relative z-10 border border-slate-800 shadow-xl shadow-black/50">
         {/* Calendar Header */}
-        <div className="grid grid-cols-7 border-b border-slate-800 bg-[#0f1115] text-xs font-black text-slate-400 uppercase tracking-widest shrink-0">
+        <div className="grid grid-cols-7 border-b border-slate-800 bg-[#1a1e2e] text-xs font-black text-slate-400 uppercase tracking-widest shrink-0">
           {['Du', 'Se', 'Chor', 'Pay', 'Ju', 'Shan', 'Yak'].map(day => (
             <div key={day} className="p-4 text-center border-r border-slate-800 last:border-r-0">{day}</div>
           ))}
@@ -156,7 +156,7 @@ const Calendar = () => {
               return (
                 <div 
                   key={i} 
-                  className={`bg-[#161920] p-3 flex flex-col hover:bg-slate-800 transition-colors cursor-pointer relative group ${
+                  className={`bg-[#1e2235] p-3 flex flex-col hover:bg-slate-800 transition-colors cursor-pointer relative group ${
                     !currentDay ? 'opacity-30 text-slate-500' : 'text-slate-200'
                   }`}
                 >
@@ -197,7 +197,7 @@ const Calendar = () => {
               return (
                 <div 
                   key={i} 
-                  className={`bg-[#161920] p-5 flex flex-col hover:bg-slate-800 transition-colors cursor-pointer group ${
+                  className={`bg-[#1e2235] p-5 flex flex-col hover:bg-slate-800 transition-colors cursor-pointer group ${
                     !isCurrentMonth ? 'opacity-30 text-slate-500' : 'text-slate-200'
                   }`}
                 >

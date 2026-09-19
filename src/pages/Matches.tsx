@@ -19,7 +19,7 @@ const Matches = () => {
   };
 
   return (
-    <div className="p-8 h-full overflow-y-auto custom-scrollbar relative z-0 bg-[#0f1115]">
+    <div className="p-8 h-full overflow-y-auto custom-scrollbar relative z-0 bg-[#1a1e2e]">
       {/* Background ambient light */}
       <div className="absolute top-20 right-20 w-96 h-96 bg-[#FFE600]/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
       <div className="absolute bottom-20 left-20 w-96 h-96 bg-transparent blur-[120px] pointer-events-none rounded-full -z-10"></div>
@@ -39,7 +39,7 @@ const Matches = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
         {matches.map((match) => (
-          <div key={match.id} className="bg-[#161920] rounded-3xl p-6 border border-slate-800 flex flex-col group relative overflow-hidden shadow-lg hover:border-slate-600 transition-all">
+          <div key={match.id} className="bg-[#1e2235] rounded-3xl p-6 border border-slate-800 flex flex-col group relative overflow-hidden shadow-lg hover:border-slate-600 transition-all">
             {/* Card gradient effect */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#FFE600]/10 to-transparent rounded-full blur-2xl -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-500"></div>
 

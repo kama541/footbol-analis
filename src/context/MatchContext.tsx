@@ -47,6 +47,8 @@ interface MatchContextType {
   events: MatchEvent[];
   players: PlayerStat[];
   matchStats: MatchStatsType;
+  videoSrc: string | null;
+  setVideoSrc: (src: string | null) => void;
   togglePlay: () => void;
   pauseMatch: () => void;
   setCurrentTime: (time: number) => void;
@@ -71,49 +73,71 @@ export const MatchProvider = ({ children }: { children: ReactNode }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [events, setEvents] = useState<MatchEvent[]>([]);
   const [players, setPlayers] = useState<PlayerStat[]>(initialPlayers);
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
   useEffect(() => {
     let interval: number;
-    if (isPlaying) {
+    // Only simulate player speeds when a real video is loaded AND playing
+    if (isPlaying && videoSrc) {
       interval = window.setInterval(() => {
         setCurrentTimeState((prev) => prev + 1);
-        
-        // Simulate dynamic speed tracking
+
         setPlayers(prev => prev.map(p => {
-          // Generate realistic football speeds
-          // 90% of the time: walking/jogging (0-12 km/h)
-          // 8% of the time: running (12-24 km/h)
-          // 2% of the time: sprinting (24-34 km/h)
+          // Position-based max speed and activity profiles
+          const profile: Record<string, { maxSpeed: number; sprintChance: number; runChance: number; jogChance: number }> = {
+            ST:  { maxSpeed: 34, sprintChance: 0.04, runChance: 0.20, jogChance: 0.45 },
+            RW:  { maxSpeed: 35, sprintChance: 0.05, runChance: 0.25, jogChance: 0.40 },
+            LW:  { maxSpeed: 35, sprintChance: 0.05, runChance: 0.25, jogChance: 0.40 },
+            CAM: { maxSpeed: 30, sprintChance: 0.03, runChance: 0.18, jogChance: 0.50 },
+            CM:  { maxSpeed: 29, sprintChance: 0.02, runChance: 0.15, jogChance: 0.55 },
+            CDM: { maxSpeed: 28, sprintChance: 0.02, runChance: 0.12, jogChance: 0.55 },
+            CB:  { maxSpeed: 28, sprintChance: 0.01, runChance: 0.10, jogChance: 0.50 },
+            GK:  { maxSpeed: 22, sprintChance: 0.005, runChance: 0.05, jogChance: 0.30 },
+          };
+
+          const pos = profile[p.pos] ?? profile['CM'];
           const rand = Math.random();
-          let newCurrentSpeed = 0;
-          
-          if (rand > 0.98) {
-            newCurrentSpeed = 24 + Math.random() * 10; // Sprint
-          } else if (rand > 0.9) {
-            newCurrentSpeed = 12 + Math.random() * 12; // Run
-          } else if (rand > 0.3) {
-            newCurrentSpeed = 4 + Math.random() * 8;   // Jog
+
+          // Determine target speed based on position profile
+          let targetSpeed: number;
+          if (rand < pos.sprintChance) {
+            targetSpeed = 25 + Math.random() * (pos.maxSpeed - 25); // Sprint
+          } else if (rand < pos.sprintChance + pos.runChance) {
+            targetSpeed = 14 + Math.random() * 11; // High-intensity run
+          } else if (rand < pos.sprintChance + pos.runChance + pos.jogChance) {
+            targetSpeed = 5 + Math.random() * 9;  // Jog
           } else {
-            newCurrentSpeed = Math.random() * 4;       // Walk/Stand
+            targetSpeed = Math.random() * 5; // Walk / stand
           }
-          
-          newCurrentSpeed = +newCurrentSpeed.toFixed(1);
-          
+
+          // Inertia: speed cannot jump instantly — max change 4 km/h per second
+          const maxDelta = 4.0;
+          const diff = targetSpeed - p.currentSpeed;
+          const delta = Math.max(-maxDelta, Math.min(maxDelta, diff));
+          const newCurrentSpeed = Math.max(0, +(p.currentSpeed + delta).toFixed(1));
+
+          // Sprint: count only new sprint entries (cross 25 km/h threshold going up)
           const isNewSprint = newCurrentSpeed >= 25 && p.currentSpeed < 25;
           const newTopSpeed = Math.max(p.topSpeed, newCurrentSpeed);
-          
+
+          // Distance: km/h → km per second (÷ 3600)
+          const distIncrement = newCurrentSpeed / 3600;
+
           return {
             ...p,
-            dist: +(p.dist + (newCurrentSpeed / 3600)).toFixed(2), // Convert km/h to km per second
+            dist: +(p.dist + distIncrement).toFixed(3),
             currentSpeed: newCurrentSpeed,
             topSpeed: newTopSpeed,
-            sprints: p.sprints + (isNewSprint ? 1 : 0)
+            sprints: p.sprints + (isNewSprint ? 1 : 0),
           };
         }));
       }, 1000);
+    } else {
+      // No video or paused — reset all current speeds to 0
+      setPlayers(prev => prev.map(p => ({ ...p, currentSpeed: 0 })));
     }
     return () => clearInterval(interval);
-  }, [isPlaying]);
+  }, [isPlaying, videoSrc]);
 
 
 
@@ -163,25 +187,23 @@ export const MatchProvider = ({ children }: { children: ReactNode }) => {
   const matchStats = useMemo(() => {
     let stats = {
       fcScore: 0, nvScore: 0,
-      fcPossession: 55, nvPossession: 45, // Default base
-      fcShots: 0, nvShots: 4,
-      fcShotsOnTarget: 0, nvShotsOnTarget: 2,
-      fcCorners: 0, nvCorners: 2,
-      fcFouls: 0, nvFouls: 5,
-      fcXG: 0.0, nvXG: 0.64
+      fcPossession: 0, nvPossession: 0,
+      fcShots: 0, nvShots: 0,
+      fcShotsOnTarget: 0, nvShotsOnTarget: 0,
+      fcCorners: 0, nvCorners: 0,
+      fcFouls: 0, nvFouls: 0,
+      fcXG: 0.0, nvXG: 0.0
     };
 
     events.forEach(e => {
       const isFC = e.team === 'Football Club';
       if (e.type === 'GOAL') {
-        if (isFC) stats.fcScore++; else stats.nvScore++;
-        if (isFC) stats.fcXG += 0.8;
+        if (isFC) { stats.fcScore++; stats.fcXG += 0.8; stats.fcShots++; stats.fcShotsOnTarget++; }
+        else { stats.nvScore++; stats.nvXG += 0.8; stats.nvShots++; stats.nvShotsOnTarget++; }
       }
-      if (e.type === 'SHOT' || e.type === 'CHANCE' || e.type === 'GOAL') {
-        if (isFC) stats.fcShots++; else stats.nvShots++;
-        if (e.type === 'GOAL') {
-            if (isFC) stats.fcShotsOnTarget++; else stats.nvShotsOnTarget++;
-        }
+      if (e.type === 'SHOT' || e.type === 'CHANCE') {
+        if (isFC) { stats.fcShots++; stats.fcXG += 0.15; }
+        else { stats.nvShots++; stats.nvXG += 0.15; }
       }
       if (e.type === 'CORNER') {
         if (isFC) stats.fcCorners++; else stats.nvCorners++;
@@ -189,14 +211,21 @@ export const MatchProvider = ({ children }: { children: ReactNode }) => {
       if (e.type === 'FOUL') {
         if (isFC) stats.fcFouls++; else stats.nvFouls++;
       }
+      if (e.type === 'KEY PASS' || e.type === 'ASSIST') {
+        if (isFC) stats.fcXG += 0.1; else stats.nvXG += 0.1;
+      }
     });
+
+    stats.fcXG = +stats.fcXG.toFixed(2);
+    stats.nvXG = +stats.nvXG.toFixed(2);
 
     return stats;
   }, [events]);
 
   return (
     <MatchContext.Provider value={{ 
-      currentTime, isPlaying, events, players, matchStats, 
+      currentTime, isPlaying, events, players, matchStats,
+      videoSrc, setVideoSrc,
       togglePlay, pauseMatch, setCurrentTime, addEvent, deleteEvent, updateEvent, exportToJSON 
     }}>
       {children}

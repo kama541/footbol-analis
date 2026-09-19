@@ -16,7 +16,7 @@ const Layout = () => {
   const [isAiOpen, setIsAiOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-[#0f1115] overflow-hidden text-slate-900 relative flex-col">
+    <div className="flex h-screen bg-[#1a1e2e] overflow-hidden text-slate-900 relative flex-col">
       <TopHeader onOpenAi={() => setIsAiOpen(true)} />
       
       <main className="flex-1 overflow-hidden relative">

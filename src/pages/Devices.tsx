@@ -12,7 +12,7 @@ const Devices = () => {
   ];
 
   return (
-    <div className="p-8 h-full overflow-y-auto bg-[#0f1115]">
+    <div className="p-8 h-full overflow-y-auto bg-[#1a1e2e]">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold text-white tracking-tight">Devices</h1>
         <button 
@@ -26,7 +26,7 @@ const Devices = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {devices.map((device, i) => (
-          <div key={i} className="bg-[#161920] rounded-2xl p-6 border border-slate-800 shadow-sm hover:shadow-md hover:border-slate-600 transition-all group flex flex-col">
+          <div key={i} className="bg-[#1e2235] rounded-2xl p-6 border border-slate-800 shadow-sm hover:shadow-md hover:border-slate-600 transition-all group flex flex-col">
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
                 <div className={`p-3 rounded-xl ${device.status === 'Online' ? 'bg-[#FFE600]/10 text-[#FFE600]' : 'bg-slate-800 text-slate-400'}`}>
