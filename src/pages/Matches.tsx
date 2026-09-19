@@ -21,8 +21,8 @@ const Matches = () => {
   return (
     <div className="p-8 h-full overflow-y-auto custom-scrollbar relative z-0 bg-[#1a1e2e]">
       {/* Background ambient light */}
-      <div className="absolute top-20 right-20 w-96 h-96 bg-football-blue/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
-      <div className="absolute bottom-20 left-20 w-96 h-96 bg-football-purple/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
+      <div className="absolute top-20 right-20 w-96 h-96 bg-[#FFE600]/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
+      <div className="absolute bottom-20 left-20 w-96 h-96 bg-transparent blur-[120px] pointer-events-none rounded-full -z-10"></div>
 
       <div className="flex items-center justify-between mb-10">
         <h1 className="text-4xl font-black text-white tracking-tight drop-shadow-sm">
@@ -30,7 +30,7 @@ const Matches = () => {
         </h1>
         <button 
           onClick={() => setShowNewMatch(true)}
-          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-football-blue to-football-purple text-white rounded-xl font-bold shadow-lg shadow-football-blue/25 hover:shadow-football-blue/40 text-sm tracking-wide"
+          className="flex items-center gap-2 px-5 py-2.5 bg-[#FFE600] text-black rounded-xl font-bold shadow-lg shadow-[#FFE600]/25 hover:shadow-[#FFE600]/40 text-sm tracking-wide"
         >
           <Calendar size={18} />
           New Match
@@ -41,14 +41,14 @@ const Matches = () => {
         {matches.map((match) => (
           <div key={match.id} className="bg-[#1e2235] rounded-3xl p-6 border border-slate-800 flex flex-col group relative overflow-hidden shadow-lg hover:border-slate-600 transition-all">
             {/* Card gradient effect */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-football-blue/10 to-transparent rounded-full blur-2xl -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-500"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#FFE600]/10 to-transparent rounded-full blur-2xl -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-500"></div>
 
             <div className="flex justify-between items-center mb-8 relative z-10">
               <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">{match.comp}</span>
               <span className={`text-[10px] font-black px-2.5 py-1 rounded-md tracking-wider uppercase shadow-sm ${
-                match.status === 'LIVE' ? 'bg-football-red/15 text-football-red shadow-football-red/20 animate-pulse' :
+                match.status === 'LIVE' ? 'bg-[#FFE600]/15 text-[#FFE600] shadow-[#FFE600]/20 animate-pulse' :
                 match.status === 'FT' ? 'bg-slate-800 text-slate-400' :
-                'bg-football-blue/15 text-football-blue shadow-football-blue/20'
+                'bg-white/10 text-white shadow-white/20'
               }`}>
                 {match.status}
               </span>
@@ -87,7 +87,7 @@ const Matches = () => {
               onClick={() => handleOpenAnalysis(match.id)}
               className={`mt-auto w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 relative overflow-hidden z-10 ${
                 match.status === 'LIVE' || match.status === 'FT' 
-                  ? 'bg-football-blue text-white shadow-lg shadow-football-blue/25 hover:shadow-football-blue/40 hover:-translate-y-0.5' 
+                  ? 'bg-[#FFE600] text-black shadow-lg shadow-[#FFE600]/25 hover:shadow-[#FFE600]/40 hover:-translate-y-0.5' 
                   : 'bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-800'
               }`}
               disabled={match.status === 'UPCOMING'}
@@ -106,7 +106,7 @@ const Matches = () => {
       {showNewMatch && (
         <div className="fixed inset-0 bg-football-navy/80 backdrop-blur-md z-50 flex items-center justify-center animate-fade-in">
           <div className="glass-panel rounded-3xl p-8 w-[450px] animate-slide-up relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-football-blue/10 blur-2xl rounded-full"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFE600]/10 blur-2xl rounded-full"></div>
             <div className="flex justify-between items-center mb-8 relative z-10">
               <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Create Match</h2>
               <button onClick={() => setShowNewMatch(false)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-full">
@@ -116,21 +116,21 @@ const Matches = () => {
             <div className="space-y-5 relative z-10">
               <div>
                 <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider">Opponent Team</label>
-                <input type="text" placeholder="e.g. Bunyodkor" className="w-full border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-3 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm text-slate-900 dark:text-white outline-none focus:border-football-blue focus:ring-1 focus:ring-football-blue transition-all" />
+                <input type="text" placeholder="e.g. Bunyodkor" className="w-full border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-3 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm text-slate-900 dark:text-white outline-none focus:border-[#FFE600] focus:ring-1 focus:ring-[#FFE600] transition-all" />
               </div>
               <div className="grid grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider">Date</label>
-                  <input type="date" className="w-full border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-3 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm text-slate-900 dark:text-white outline-none focus:border-football-blue transition-all" />
+                  <input type="date" className="w-full border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-3 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm text-slate-900 dark:text-white outline-none focus:border-[#FFE600] transition-all" />
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider">Time</label>
-                  <input type="time" className="w-full border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-3 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm text-slate-900 dark:text-white outline-none focus:border-football-blue transition-all" />
+                  <input type="time" className="w-full border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-3 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm text-slate-900 dark:text-white outline-none focus:border-[#FFE600] transition-all" />
                 </div>
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider">Location</label>
-                <select className="w-full border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-3 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm text-slate-900 dark:text-white outline-none focus:border-football-blue transition-all">
+                <select className="w-full border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-3 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm text-slate-900 dark:text-white outline-none focus:border-[#FFE600] transition-all">
                   <option>Home</option>
                   <option>Away</option>
                 </select>
@@ -140,7 +140,7 @@ const Matches = () => {
               <button onClick={() => setShowNewMatch(false)} className="flex-1 py-3.5 bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-white rounded-xl font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                 Cancel
               </button>
-              <button onClick={() => setShowNewMatch(false)} className="glass-button flex-1 py-3.5 bg-football-blue text-white rounded-xl font-bold shadow-lg shadow-football-blue/30 hover:shadow-football-blue/50">
+              <button onClick={() => setShowNewMatch(false)} className="glass-button flex-1 py-3.5 bg-[#FFE600] text-black rounded-xl font-bold shadow-lg shadow-[#FFE600]/30 hover:shadow-[#FFE600]/50">
                 Save Match
               </button>
             </div>

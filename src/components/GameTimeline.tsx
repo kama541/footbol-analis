@@ -9,10 +9,10 @@ const GameTimeline = () => {
 
   const getColor = (category: EventCategory) => {
     switch (category) {
-      case 'attacking': return 'bg-football-green border-[#1a2e1f]';
-      case 'defensive': return 'bg-football-red border-[#311717]';
-      case 'positive': return 'bg-football-purple border-[#1e1c31]';
-      case 'other': return 'bg-football-orange border-[#291e10]';
+      case 'attacking': return 'bg-[#FFE600] border-[#332e00]';
+      case 'defensive': return 'bg-white border-slate-400';
+      case 'positive': return 'bg-slate-300 border-slate-500';
+      case 'other': return 'bg-slate-500 border-slate-700';
       default: return 'bg-slate-400 border-slate-700';
     }
   };
@@ -59,8 +59,8 @@ const GameTimeline = () => {
 
         {/* Current Time Indicator */}
         <div 
-          className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-football-blue rounded-full shadow-[0_0_12px_rgba(37,99,235,0.9)] border-2 border-[#1a1e2e] cursor-pointer z-10 transition-all duration-300"
-          style={{ left: `calc(${(currentTime / duration) * 100}% - 10px)` }}
+          className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-[#FFE600] rounded-full shadow-[0_0_10px_rgba(255,230,0,0.8)] border-2 border-[#161920] cursor-pointer z-10 transition-all duration-300"
+          style={{ left: `calc(${(currentTime / duration) * 100}% - 8px)` }}
         ></div>
 
         {/* Time Markers - labels above */}

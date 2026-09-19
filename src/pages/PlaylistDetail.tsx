@@ -11,10 +11,10 @@ const formatTime = (seconds: number) => {
 
 const getBadgeColor = (category: string) => {
   switch (category) {
-    case 'attacking': return 'bg-football-purple/10 text-football-purple';
-    case 'defensive': return 'bg-football-red/10 text-football-red';
-    case 'positive': return 'bg-football-green/10 text-football-green';
-    case 'other': return 'bg-football-orange/10 text-football-orange';
+    case 'attacking': return 'bg-[#FFE600]/10 text-[#FFE600]';
+    case 'defensive': return 'bg-slate-200/10 text-slate-200';
+    case 'positive': return 'bg-slate-300/10 text-slate-300';
+    case 'other': return 'bg-slate-400/10 text-slate-400';
     default: return 'bg-slate-100 text-slate-700';
   }
 };
@@ -59,8 +59,8 @@ const PlaylistDetail = () => {
   return (
     <div className="p-8 h-full flex flex-col overflow-hidden custom-scrollbar relative z-0">
       {/* Background ambient light */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-football-purple/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-football-blue/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#FFE600]/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-transparent blur-[120px] pointer-events-none rounded-full -z-10"></div>
 
       <div className="flex items-center gap-6 mb-10 shrink-0 relative z-10">
         <button 
@@ -71,7 +71,7 @@ const PlaylistDetail = () => {
         </button>
         <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight drop-shadow-sm">{title}</h1>
         <div className="ml-auto glass-panel px-5 py-2.5 rounded-xl border border-slate-200/50 dark:border-slate-700/50 shadow-md text-sm font-black text-slate-700 dark:text-slate-200 bg-white/40 dark:bg-slate-800/40 tracking-wider uppercase flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-football-blue animate-pulse"></span>
+          <span className="w-2 h-2 rounded-full bg-[#FFE600] animate-pulse"></span>
           {playlistEvents.length} ta vaziyat
         </div>
       </div>
@@ -95,7 +95,7 @@ const PlaylistDetail = () => {
                 className="glass-card rounded-2xl border border-slate-200/50 dark:border-slate-700/50 p-6 hover:-translate-y-1 transition-all cursor-pointer group animate-slide-up relative overflow-hidden"
               >
                 {/* Hover gradient effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-football-blue/0 to-football-purple/0 group-hover:from-football-blue/5 group-hover:to-football-purple/5 transition-colors"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FFE600]/0 to-[#FFE600]/0 group-hover:from-[#FFE600]/5 group-hover:to-[#FFE600]/5 transition-colors"></div>
 
                 <div className="flex justify-between items-start mb-5 relative z-10">
                   <div className={`px-3 py-1.5 rounded-md text-[10px] font-black tracking-widest uppercase shadow-sm ${getBadgeColor(event.category)}`}>
@@ -109,7 +109,7 @@ const PlaylistDetail = () => {
                 <h3 className="font-black text-slate-900 dark:text-white text-xl mb-2 relative z-10">{event.player}</h3>
                 <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 font-medium relative z-10">{event.description}</p>
                 
-                <div className="mt-6 flex items-center text-football-blue text-sm font-black uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 relative z-10">
+                <div className="mt-6 flex items-center text-[#FFE600] text-sm font-black uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 relative z-10">
                   <Play size={16} className="mr-2" />
                   Videoni ko'rish
                 </div>
