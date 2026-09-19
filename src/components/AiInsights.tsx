@@ -35,13 +35,13 @@ const AiInsights = ({ isOpen, onClose }: AiInsightsProps) => {
   };
 
   return (
-    <div className="absolute inset-0 bg-football-navy/40 backdrop-blur-sm z-50 flex justify-end">
-      <div className="w-[500px] h-full bg-white shadow-2xl flex flex-col animate-slide-in-right">
+    <div className="absolute inset-0 bg-[#0f1115]/60 backdrop-blur-sm z-50 flex justify-end">
+      <div className="w-[500px] h-full bg-[#161920] shadow-2xl flex flex-col animate-slide-in-right">
         
         {/* Header */}
-        <div className="h-16 border-b border-slate-200 px-6 flex items-center justify-between shrink-0 bg-football-navy text-white">
+        <div className="h-16 border-b border-slate-800 px-6 flex items-center justify-between shrink-0 bg-[#1a1d24] text-white">
           <h2 className="text-lg font-bold flex items-center gap-2">
-            <Sparkles className="text-football-blue" size={20} />
+            <Sparkles className="text-[#FFE600]" size={20} />
             AI Taktik Tahlil (Football Vision AI)
           </h2>
           <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors">
@@ -51,32 +51,32 @@ const AiInsights = ({ isOpen, onClose }: AiInsightsProps) => {
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
-          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-sm text-slate-600">
+          <div className="bg-[#1a1d24] p-4 rounded-xl border border-slate-800 text-sm text-slate-300">
             AI o'yin davomida yig'ilgan statistika (to'p nazorati, zarbalar, xG) va siz kiritgan jonli teglarga asoslanib professional tahlil yozib beradi.
           </div>
 
           <button 
             onClick={handleGenerate}
             disabled={loading}
-            className="w-full py-3 bg-football-purple hover:bg-football-purple/90 text-white font-bold rounded-xl shadow-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full py-3 bg-[#FFE600] hover:bg-yellow-500 text-black font-bold rounded-xl shadow-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
           >
             {loading ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} />}
             {loading ? 'Tahlil qilinmoqda...' : 'Tahlilni Boshlash'}
           </button>
 
           {error && (
-            <div className="bg-red-50 text-red-600 p-4 rounded-xl text-sm border border-red-100">
+            <div className="bg-red-900/20 text-red-400 p-4 rounded-xl text-sm border border-red-900/50">
               {error}
             </div>
           )}
 
           {analysis && (
-            <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-              <h3 className="font-bold text-football-navy mb-4 border-b pb-2 flex items-center gap-2">
-                <Sparkles size={16} className="text-football-purple" />
+            <div className="bg-[#1a1d24] border border-slate-800 rounded-xl p-5 shadow-sm">
+              <h3 className="font-bold text-white mb-4 border-b border-slate-700 pb-2 flex items-center gap-2">
+                <Sparkles size={16} className="text-[#FFE600]" />
                 AI Xulosasi
               </h3>
-              <div className="prose prose-sm max-w-none text-slate-700 whitespace-pre-wrap leading-relaxed">
+              <div className="prose prose-sm max-w-none text-slate-300 whitespace-pre-wrap leading-relaxed">
                 {analysis}
               </div>
             </div>

@@ -9,12 +9,13 @@ export default {
     extend: {
       colors: {
         football: {
-          navy: '#0b1120', // Darker navy for better contrast
-          purple: '#8b5cf6', // More vibrant purple
-          blue: '#3b82f6',
-          green: '#10b981', // More vibrant emerald green
-          red: '#f43f5e', // More vibrant rose red
-          orange: '#f97316',
+          navy: '#0b1120',
+          purple: '#FFE600', // Replaced with yellow
+          blue: '#FFE600', // Replaced with yellow
+          green: '#FFE600', // Replaced with yellow
+          red: '#FFE600', // Replaced with yellow
+          orange: '#FFE600', // Replaced with yellow
+          yellow: '#FFE600',
           light: '#f8fafc',
           dark: '#0f172a'
         }

@@ -5,18 +5,18 @@ import { useNavigate } from 'react-router-dom';
 const Playlists = () => {
   const navigate = useNavigate();
   const playlists = [
-    { id: 'goals', title: 'Goals', count: 42, duration: '14:30', color: 'bg-football-purple' },
-    { id: 'best-attacks', title: 'Best Attacks', count: 128, duration: '45:15', color: 'bg-football-blue' },
-    { id: 'defensive-actions', title: 'Defensive Actions', count: 85, duration: '28:40', color: 'bg-football-red' },
-    { id: 'set-pieces', title: 'Set Pieces', count: 56, duration: '21:05', color: 'bg-football-orange' },
-    { id: 'individual-player-analysis', title: 'Individual Player Analysis', count: 24, duration: '08:50', color: 'bg-football-green' },
+    { id: 'goals', title: 'Goals', count: 42, duration: '14:30', color: 'bg-[#FFE600] text-black' },
+    { id: 'best-attacks', title: 'Best Attacks', count: 128, duration: '45:15', color: 'bg-slate-300 text-slate-900' },
+    { id: 'defensive-actions', title: 'Defensive Actions', count: 85, duration: '28:40', color: 'bg-slate-500 text-white' },
+    { id: 'set-pieces', title: 'Set Pieces', count: 56, duration: '21:05', color: 'bg-slate-700 text-white' },
+    { id: 'individual-player-analysis', title: 'Individual Player Analysis', count: 24, duration: '08:50', color: 'bg-slate-800 text-white' },
   ];
 
   return (
     <div className="p-8 h-full overflow-y-auto custom-scrollbar relative z-0 bg-[#0f1115]">
       {/* Background ambient light */}
-      <div className="absolute top-20 right-20 w-96 h-96 bg-football-purple/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
-      <div className="absolute bottom-20 left-20 w-96 h-96 bg-football-blue/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
+      <div className="absolute top-20 right-20 w-96 h-96 bg-[#FFE600]/10 blur-[120px] pointer-events-none rounded-full -z-10"></div>
+      <div className="absolute bottom-20 left-20 w-96 h-96 bg-transparent blur-[120px] pointer-events-none rounded-full -z-10"></div>
 
       <div className="flex items-center justify-between mb-10">
         <h1 className="text-4xl font-black text-white tracking-tight drop-shadow-sm">Playlists</h1>
@@ -40,7 +40,7 @@ const Playlists = () => {
               <div className="absolute top-0 right-6 -translate-y-1/2 w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center shadow-lg border border-slate-700">
                 <span className={`w-3 h-3 rounded-full ${pl.color} shadow-sm animate-pulse`}></span>
               </div>
-              <h3 className="text-lg font-black text-white mb-2 group-hover:text-football-blue transition-colors">{pl.title}</h3>
+              <h3 className="text-lg font-black text-white mb-2 group-hover:text-[#FFE600] transition-colors">{pl.title}</h3>
               <div className="flex items-center gap-3 text-sm text-slate-400 font-semibold tracking-wide">
                 <span>{pl.count} clips</span>
                 <span className="w-1 h-1 rounded-full bg-slate-600"></span>

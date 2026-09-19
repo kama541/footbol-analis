@@ -81,8 +81,8 @@ const Calendar = () => {
   return (
     <div className="p-8 h-full overflow-y-auto flex flex-col relative z-0 custom-scrollbar bg-[#0f1115]">
       {/* Ambient background glows */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-football-blue/5 blur-[120px] pointer-events-none rounded-full -z-10"></div>
-      <div className="absolute bottom-40 left-20 w-80 h-80 bg-football-purple/5 blur-[100px] pointer-events-none rounded-full -z-10"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#FFE600]/5 blur-[120px] pointer-events-none rounded-full -z-10"></div>
+      <div className="absolute bottom-40 left-20 w-80 h-80 bg-transparent blur-[100px] pointer-events-none rounded-full -z-10"></div>
 
       <div className="flex items-center justify-between mb-8 shrink-0 relative z-10">
         <div className="flex items-center gap-6">
@@ -167,20 +167,20 @@ const Calendar = () => {
                   </span>
                   
                   {evt && evt.type === 'match' && (
-                    <div className="mt-auto bg-football-red/20 text-football-red text-xs font-bold px-2.5 py-1.5 rounded-md border border-football-red/20 shadow-sm truncate group-hover:shadow-md transition-shadow" title={evt.title}>
-                      <span className="w-1.5 h-1.5 inline-block bg-football-red rounded-full mr-1.5 animate-pulse"></span>
+                    <div className="mt-auto bg-[#FFE600]/20 text-[#FFE600] text-xs font-bold px-2.5 py-1.5 rounded-md border border-[#FFE600]/20 shadow-sm truncate group-hover:shadow-md transition-shadow" title={evt.title}>
+                      <span className="w-1.5 h-1.5 inline-block bg-[#FFE600] rounded-full mr-1.5 animate-pulse"></span>
                       {evt.title}
                     </div>
                   )}
                   {evt && evt.type === 'analysis' && (
-                    <div className="mt-auto bg-football-purple/20 text-football-purple text-xs font-bold px-2.5 py-1.5 rounded-md border border-football-purple/20 shadow-sm truncate group-hover:shadow-md transition-shadow" title={evt.title}>
-                      <span className="w-1.5 h-1.5 inline-block bg-football-purple rounded-full mr-1.5"></span>
+                    <div className="mt-auto bg-slate-300/20 text-slate-300 text-xs font-bold px-2.5 py-1.5 rounded-md border border-slate-300/20 shadow-sm truncate group-hover:shadow-md transition-shadow" title={evt.title}>
+                      <span className="w-1.5 h-1.5 inline-block bg-slate-300 rounded-full mr-1.5"></span>
                       {evt.title}
                     </div>
                   )}
                   {evt && evt.type === 'training' && (
-                    <div className="mt-auto bg-football-green/20 text-football-green text-xs font-bold px-2.5 py-1.5 rounded-md border border-football-green/20 shadow-sm truncate group-hover:shadow-md transition-shadow" title={evt.title}>
-                      <span className="w-1.5 h-1.5 inline-block bg-football-green rounded-full mr-1.5"></span>
+                    <div className="mt-auto bg-slate-400/20 text-slate-400 text-xs font-bold px-2.5 py-1.5 rounded-md border border-slate-400/20 shadow-sm truncate group-hover:shadow-md transition-shadow" title={evt.title}>
+                      <span className="w-1.5 h-1.5 inline-block bg-slate-400 rounded-full mr-1.5"></span>
                       {evt.title}
                     </div>
                   )}
@@ -209,23 +209,23 @@ const Calendar = () => {
                   
                   <div className="flex-1 flex flex-col gap-3">
                     {evt && evt.type === 'match' && (
-                      <div className="bg-football-red/15 text-football-red text-sm font-bold p-4 rounded-xl border border-football-red/20 shadow-sm group-hover:shadow-md transition-shadow relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-12 h-12 bg-football-red/20 blur-xl rounded-full"></div>
-                        <span className="w-2 h-2 inline-block bg-football-red rounded-full mr-2 animate-pulse"></span>
+                      <div className="bg-[#FFE600]/15 text-[#FFE600] text-sm font-bold p-4 rounded-xl border border-[#FFE600]/20 shadow-sm group-hover:shadow-md transition-shadow relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-12 h-12 bg-[#FFE600]/20 blur-xl rounded-full"></div>
+                        <span className="w-2 h-2 inline-block bg-[#FFE600] rounded-full mr-2 animate-pulse"></span>
                         {evt.title}
                       </div>
                     )}
                     {evt && evt.type === 'analysis' && (
-                      <div className="bg-football-purple/15 text-football-purple text-sm font-bold p-4 rounded-xl border border-football-purple/20 shadow-sm group-hover:shadow-md transition-shadow relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-12 h-12 bg-football-purple/20 blur-xl rounded-full"></div>
-                        <span className="w-2 h-2 inline-block bg-football-purple rounded-full mr-2"></span>
+                      <div className="bg-slate-300/15 text-slate-300 text-sm font-bold p-4 rounded-xl border border-slate-300/20 shadow-sm group-hover:shadow-md transition-shadow relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-12 h-12 bg-slate-300/20 blur-xl rounded-full"></div>
+                        <span className="w-2 h-2 inline-block bg-slate-300 rounded-full mr-2"></span>
                         {evt.title}
                       </div>
                     )}
                     {evt && evt.type === 'training' && (
-                      <div className="bg-football-green/15 text-football-green text-sm font-bold p-4 rounded-xl border border-football-green/20 shadow-sm group-hover:shadow-md transition-shadow relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-12 h-12 bg-football-green/20 blur-xl rounded-full"></div>
-                        <span className="w-2 h-2 inline-block bg-football-green rounded-full mr-2"></span>
+                      <div className="bg-slate-400/15 text-slate-400 text-sm font-bold p-4 rounded-xl border border-slate-400/20 shadow-sm group-hover:shadow-md transition-shadow relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-12 h-12 bg-slate-400/20 blur-xl rounded-full"></div>
+                        <span className="w-2 h-2 inline-block bg-slate-400 rounded-full mr-2"></span>
                         {evt.title}
                       </div>
                     )}

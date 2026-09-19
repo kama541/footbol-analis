@@ -11,11 +11,11 @@ interface TagButtonProps {
 const TagButton = ({ label, category, isSelected, onClick }: TagButtonProps) => {
   const getColors = () => {
     switch (category) {
-      case 'attacking': return 'bg-[#1a2e1f] text-football-green hover:bg-football-green hover:text-white border-[#24422c]';
-      case 'defensive': return 'bg-[#311717] text-football-red hover:bg-football-red hover:text-white border-[#472222]';
-      case 'positive': return 'bg-[#1e1c31] text-football-purple hover:bg-football-purple hover:text-white border-[#2e2b4d]';
-      case 'other': return 'bg-[#291e10] text-football-orange hover:bg-football-orange hover:text-white border-[#45331a]';
-      default: return 'bg-slate-800 text-slate-300 hover:bg-slate-700 border-slate-700';
+      case 'attacking': return 'bg-[#1a1d24] text-[#FFE600] hover:bg-[#FFE600] hover:text-black border-slate-700';
+      case 'defensive': return 'bg-[#1a1d24] text-white hover:bg-slate-200 hover:text-black border-slate-700';
+      case 'positive': return 'bg-[#1a1d24] text-slate-300 hover:bg-slate-400 hover:text-black border-slate-700';
+      case 'other': return 'bg-[#1a1d24] text-slate-400 hover:bg-slate-500 hover:text-black border-slate-700';
+      default: return 'bg-[#1a1d24] text-slate-300 hover:bg-[#FFE600] hover:text-black border-slate-700';
     }
   };
 
@@ -102,7 +102,7 @@ const TaggingPanel = () => {
           <select 
             value={selectedPlayerId}
             onChange={(e) => setSelectedPlayerId(e.target.value)}
-            className="w-full bg-black border border-slate-800 text-slate-200 text-xs font-bold rounded p-2 outline-none focus:border-football-blue"
+            className="w-full bg-black border border-slate-800 text-slate-200 text-xs font-bold rounded p-2 outline-none focus:border-[#FFE600]"
           >
             {players.map(p => (
               <option key={p.id} value={p.id} className="font-bold">
@@ -122,7 +122,7 @@ const TaggingPanel = () => {
               onChange={(e) => setNote(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') handleSendNote(); }}
               placeholder="Add note..."
-              className="flex-1 w-full bg-black border border-slate-800 text-slate-200 text-xs font-bold rounded p-2 outline-none focus:border-football-blue placeholder:text-slate-600"
+              className="flex-1 w-full bg-black border border-slate-800 text-slate-200 text-xs font-bold rounded p-2 outline-none focus:border-[#FFE600] placeholder:text-slate-600"
             />
             <button
               onClick={handleSendNote}

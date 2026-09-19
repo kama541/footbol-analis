@@ -175,7 +175,7 @@ const Training = () => {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-            <Activity className="text-football-blue" size={32} />
+            <Activity className="text-[#FFE600]" size={32} />
             {t('training.title', 'Futbolchi Sintezi')}
           </h1>
           <p className="text-slate-400 mt-2">
@@ -204,7 +204,7 @@ const Training = () => {
         <div className="flex flex-col gap-6">
           {/* Top Row: Player Info Header */}
           <div className="bg-[#161920] rounded-2xl shadow-lg border border-slate-800 p-6 flex flex-col md:flex-row gap-6 items-center">
-            <div className="w-20 h-20 bg-football-blue/10 rounded-full flex items-center justify-center text-football-blue shrink-0 border-2 border-football-blue/20">
+            <div className="w-20 h-20 bg-[#FFE600]/10 rounded-full flex items-center justify-center text-[#FFE600] shrink-0 border-2 border-[#FFE600]/20">
               <User size={40} />
             </div>
             <div className="flex-1 text-center md:text-left">
@@ -237,7 +237,7 @@ const Training = () => {
               </div>
               
               <div 
-                className={`relative w-full aspect-video bg-slate-900 rounded-xl overflow-hidden border-2 transition-all flex-1 ${isDragging ? 'border-football-blue bg-slate-800 scale-[1.01]' : 'border-slate-700 group'}`}
+                className={`relative w-full aspect-video bg-slate-900 rounded-xl overflow-hidden border-2 transition-all flex-1 ${isDragging ? 'border-[#FFE600] bg-slate-800 scale-[1.01]' : 'border-slate-700 group'}`}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
@@ -255,7 +255,7 @@ const Training = () => {
                     />
                     {!isPlaying && (
                       <div className="absolute inset-0 bg-black/30 flex items-center justify-center cursor-pointer" onClick={togglePlay}>
-                        <div className="w-16 h-16 bg-football-blue/90 text-white rounded-full flex items-center justify-center hover:bg-football-blue transition-colors shadow-lg shadow-football-blue/30 scale-110">
+                        <div className="w-16 h-16 bg-[#FFE600] text-black rounded-full flex items-center justify-center hover:bg-yellow-500 transition-colors shadow-lg shadow-[#FFE600]/30 scale-110">
                           <Play size={24} className="ml-1" />
                         </div>
                       </div>
@@ -266,7 +266,7 @@ const Training = () => {
                         REC
                       </div>
                     )}
-                    <div className="absolute bottom-4 right-4 bg-football-blue/90 text-white text-xs font-medium px-3 py-1 rounded shadow-lg flex items-center gap-2 animate-pulse">
+                    <div className="absolute bottom-4 right-4 bg-[#FFE600] text-black text-xs font-medium px-3 py-1 rounded shadow-lg flex items-center gap-2 animate-pulse">
                       <Zap size={14} />
                       AI Tahlil qilyapti...
                     </div>
@@ -277,7 +277,7 @@ const Training = () => {
                     <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1518605368461-1e1e38ce81ba?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center"></div>
                     
                     <label className="relative z-10 flex flex-col items-center gap-4 cursor-pointer">
-                      <div className="w-16 h-16 bg-football-blue/90 text-white rounded-full flex items-center justify-center hover:bg-football-blue transition-colors shadow-lg shadow-football-blue/30 group-hover:scale-110 duration-300">
+                      <div className="w-16 h-16 bg-[#FFE600] text-black rounded-full flex items-center justify-center hover:bg-yellow-500 transition-colors shadow-lg shadow-[#FFE600]/30 group-hover:scale-110 duration-300">
                         <Upload size={24} />
                       </div>
                       <span className="text-white font-medium bg-black/50 px-4 py-2 rounded-lg backdrop-blur border border-white/10">
@@ -350,10 +350,10 @@ const Training = () => {
               
               {analysisStatus === 'analyzing' && (
                 <div className="absolute inset-0 z-20 bg-[#161920]/80 backdrop-blur-sm flex flex-col items-center justify-center rounded-2xl">
-                  <div className="w-12 h-12 border-4 border-football-blue border-t-transparent rounded-full animate-spin mb-4"></div>
-                  <div className="text-football-blue font-bold">Ma'lumotlar olinmoqda... {progress}%</div>
+                  <div className="w-12 h-12 border-4 border-[#FFE600] border-t-transparent rounded-full animate-spin mb-4"></div>
+                  <div className="text-[#FFE600] font-bold">Ma'lumotlar olinmoqda... {progress}%</div>
                   <div className="w-64 h-2 bg-slate-700 rounded-full mt-2 overflow-hidden">
-                    <div className="h-full bg-football-blue transition-all duration-300" style={{ width: `${progress}%` }}></div>
+                    <div className="h-full bg-[#FFE600] transition-all duration-300" style={{ width: `${progress}%` }}></div>
                   </div>
                 </div>
               )}
@@ -397,16 +397,16 @@ const Training = () => {
             {/* AI Training Plan / Summary */}
             <div className="col-span-1 bg-[#161920] rounded-2xl shadow-lg border border-slate-800 p-6 flex flex-col relative overflow-hidden">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-football-blue/10 flex items-center justify-center text-football-blue">
+                <div className="w-10 h-10 rounded-lg bg-[#FFE600]/10 flex items-center justify-center text-[#FFE600]">
                   <Zap size={20} />
                 </div>
                 <h3 className="text-lg font-bold text-white">AI Mashg'ulot Rejasi</h3>
               </div>
               
               <div className={`flex-1 flex flex-col gap-4 transition-opacity duration-500 ${analysisStatus === 'analyzing' ? 'opacity-20' : 'opacity-100'}`}>
-                <div className="bg-football-blue/10 p-4 rounded-xl border border-football-blue/20">
+                <div className="bg-[#FFE600]/10 p-4 rounded-xl border border-[#FFE600]/20">
                   <p className="text-sm text-slate-300 font-medium leading-relaxed transition-all">
-                    <span className="text-football-blue font-bold">Xulosa:</span> {player.aiSummary} Jismoniy tezligi a'lo darajada (Max: {player.maxSpeed} km/h).
+                    <span className="text-[#FFE600] font-bold">Xulosa:</span> {player.aiSummary} Jismoniy tezligi a'lo darajada (Max: {player.maxSpeed} km/h).
                   </p>
                 </div>
 
@@ -422,8 +422,8 @@ const Training = () => {
                   </ul>
                 </div>
                 
-                <button className="mt-auto w-full flex items-center justify-center gap-2 bg-gradient-to-r from-football-blue to-blue-600 hover:from-blue-500 hover:to-blue-600 text-white py-3 px-4 rounded-xl font-bold text-sm transition-all shadow-lg shadow-football-blue/20">
-                  <Zap size={16} className="fill-white" />
+                <button className="mt-auto w-full flex items-center justify-center gap-2 bg-[#FFE600] hover:bg-yellow-500 text-black py-3 px-4 rounded-xl font-bold text-sm transition-all shadow-lg shadow-[#FFE600]/20">
+                  <Zap size={16} className="fill-black" />
                   To'liq PDF Hisobotni Yuklab Olish
                 </button>
               </div>

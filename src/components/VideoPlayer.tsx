@@ -113,10 +113,10 @@ const VideoPlayer = () => {
 
   const getMarkerColor = (category: EventCategory) => {
     switch (category) {
-      case 'attacking': return 'bg-football-green border-football-green';
-      case 'defensive': return 'bg-football-red border-football-red';
-      case 'positive': return 'bg-football-purple border-football-purple';
-      case 'other': return 'bg-football-orange border-football-orange';
+      case 'attacking': return 'bg-[#FFE600] border-[#332e00]';
+      case 'defensive': return 'bg-white border-slate-400';
+      case 'positive': return 'bg-slate-300 border-slate-500';
+      case 'other': return 'bg-slate-500 border-slate-700';
       default: return 'bg-slate-400 border-slate-400';
     }
   };
@@ -163,10 +163,10 @@ const VideoPlayer = () => {
             <div className="absolute top-0 bottom-0 left-1/2 w-px bg-white/20"></div>
             
             <div className="z-10 bg-black/60 backdrop-blur-md p-6 rounded-xl border border-white/10 text-center shadow-2xl">
-              <Upload size={32} className="mx-auto mb-4 text-football-blue" />
+              <Upload size={32} className="mx-auto mb-4 text-[#FFE600]" />
               <h3 className="text-lg font-black text-white mb-2 uppercase tracking-wide">Upload Match Video</h3>
               <p className="text-xs text-slate-400 font-medium mb-6">Supported formats: MP4, WebM, MOV</p>
-              <label className="bg-football-blue hover:bg-blue-600 text-white px-6 py-2.5 rounded text-sm font-bold cursor-pointer transition-colors inline-block">
+              <label className="bg-[#FFE600] hover:bg-yellow-500 text-black px-6 py-2.5 rounded text-sm font-bold cursor-pointer transition-colors inline-block">
                 Select Video
                 <input type="file" accept="video/mp4,video/webm,video/quicktime" className="hidden" onChange={handleVideoUpload} />
               </label>
@@ -232,14 +232,14 @@ const VideoPlayer = () => {
               <option value={2}>2x</option>
             </select>
 
-            <button onClick={() => setShowShortcuts(!showShortcuts)} className={`p-1.5 rounded transition-colors ${showShortcuts ? 'bg-football-blue text-white' : 'hover:text-white hover:bg-slate-800'}`} title="Keyboard Shortcuts">
+            <button onClick={() => setShowShortcuts(!showShortcuts)} className={`p-1.5 rounded transition-colors ${showShortcuts ? 'bg-[#FFE600] text-black' : 'hover:text-white hover:bg-slate-800'}`} title="Keyboard Shortcuts">
               <Keyboard size={16} />
             </button>
             <button onClick={togglePiP} className="p-1.5 hover:text-white hover:bg-slate-800 rounded transition-colors" title="Picture in Picture">
               <MonitorPlay size={16} />
             </button>
             <div className="relative">
-              <button onClick={() => setShowSettings(!showSettings)} className={`p-1.5 rounded transition-colors ${showSettings ? 'bg-football-blue text-white' : 'hover:text-white hover:bg-slate-800'}`} title="Settings">
+              <button onClick={() => setShowSettings(!showSettings)} className={`p-1.5 rounded transition-colors ${showSettings ? 'bg-[#FFE600] text-black' : 'hover:text-white hover:bg-slate-800'}`} title="Settings">
                 <Settings size={16} />
               </button>
               
@@ -248,7 +248,7 @@ const VideoPlayer = () => {
                 <div className="absolute bottom-full right-0 mb-2 w-48 bg-black/95 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl z-50 text-xs text-slate-300 py-2">
                   <div className="px-3 py-1 font-bold text-white border-b border-slate-800 mb-1">Video Settings</div>
                   <button className="w-full text-left px-4 py-2 hover:bg-slate-800 transition-colors flex justify-between items-center">
-                    Quality <span className="text-football-blue font-bold">1080p</span>
+                    Quality <span className="text-[#FFE600] font-bold">1080p</span>
                   </button>
                   <button className="w-full text-left px-4 py-2 hover:bg-slate-800 transition-colors flex justify-between items-center">
                     Aspect Ratio <span className="text-slate-500">Auto</span>
