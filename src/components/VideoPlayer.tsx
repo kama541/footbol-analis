@@ -11,8 +11,17 @@ const VideoPlayer = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisProgress, setAnalysisProgress] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   // Hook for keyboard shortcuts
   useKeyboardShortcuts(videoRef, isPlaying, togglePlay, currentTime, setCurrentTime);
@@ -70,7 +79,7 @@ const VideoPlayer = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await fetch('http://127.0.0.1:8000/api/analyze/upload', {
+      const response = await fetch('/api/analyze/upload', {
         method: 'POST',
         body: formData,
       });
@@ -86,42 +95,78 @@ const VideoPlayer = () => {
         throw new Error('Analysis failed: No job_id returned');
       }
 
-      const pollInterval = 1000;
-      const timeout = 10 * 60 * 1000; // 10 minutes timeout
-      const startTime = Date.now();
-      let isCompleted = false;
+      localStorage.setItem('match_activeJobId', jobId);
+      e.target.value = '';
+      pollJobStatus(jobId);
 
-      while (!isCompleted) {
+    } catch (err) {
+      console.error(err);
+      if (isMounted.current) {
+        setUploadError(err instanceof Error ? err.message : 'Failed to analyze video. Ensure backend is running.');
+        setIsAnalyzing(false);
+        setAnalysisProgress(null);
+      }
+      e.target.value = '';
+    }
+  };
+
+  const pollJobStatus = async (jobId: string) => {
+    const pollInterval = 2000; // 2 seconds
+    const timeout = 10 * 60 * 1000; // 10 minutes timeout
+    const startTime = Date.now();
+    let isCompleted = false;
+
+    try {
+      while (!isCompleted && isMounted.current) {
         if (Date.now() - startTime > timeout) {
           throw new Error('Analysis timed out after 10 minutes');
         }
 
-        const res = await fetch(`http://127.0.0.1:8000/api/analyze/result/${jobId}`);
+        const res = await fetch(`/api/analyze/result/${jobId}`);
         if (!res.ok) {
            throw new Error('Failed to fetch job status');
         }
         const jobData = await res.json();
 
-        if (jobData.status === 'completed') {
-          setVideoSrc(`http://127.0.0.1:8000${jobData.video_url}`);
-          setCurrentTime(0);
-          isCompleted = true;
-          break;
-        } else if (jobData.status === 'failed') {
-          throw new Error(jobData.error || 'Analysis failed on backend');
+        if (isMounted.current) {
+          if (jobData.progress !== undefined) {
+            setAnalysisProgress(jobData.progress);
+          }
+
+          if (jobData.status === 'completed') {
+            setVideoSrc(`/api/analyze/result/${jobId}/video`);
+            setCurrentTime(0);
+            localStorage.removeItem('match_activeJobId');
+            isCompleted = true;
+            break;
+          } else if (jobData.status === 'failed') {
+            throw new Error(jobData.error || 'Analysis failed on backend');
+          }
         }
 
         await new Promise(resolve => setTimeout(resolve, pollInterval));
       }
-
     } catch (err) {
       console.error(err);
-      setUploadError(err instanceof Error ? err.message : 'Failed to analyze video. Ensure backend is running.');
+      if (isMounted.current) {
+        setUploadError(err instanceof Error ? err.message : 'Failed to analyze video.');
+      }
+      localStorage.removeItem('match_activeJobId');
     } finally {
-      setIsAnalyzing(false);
-      e.target.value = '';
+      if (isMounted.current) {
+        setIsAnalyzing(false);
+        setAnalysisProgress(null);
+      }
     }
   };
+
+  useEffect(() => {
+    const activeJobId = localStorage.getItem('match_activeJobId');
+    if (activeJobId && !videoSrc && !isAnalyzing) {
+      setIsAnalyzing(true);
+      pollJobStatus(activeJobId);
+    }
+  }, [videoSrc]);
 
   const handleTimeUpdate = () => {
     if (videoRef.current && isPlaying) {
@@ -217,6 +262,12 @@ const VideoPlayer = () => {
             className="w-full h-full object-contain"
             onTimeUpdate={handleTimeUpdate}
             onClick={(e) => e.stopPropagation()}
+            onError={(e) => {
+              console.error("Video failed to load", e);
+              setVideoSrc(null);
+              setUploadError("Videoni yuklashda xatolik yuz berdi. Sahifani yangilab, qaytadan urinib ko'ring.");
+              localStorage.removeItem('match_videoSrc');
+            }}
           />
         ) : (
           <div className="absolute inset-0 bg-[#1a2e1f] flex flex-col items-center justify-center cursor-pointer relative border-[10px] border-[#0f1115]">
@@ -229,7 +280,19 @@ const VideoPlayer = () => {
                 <>
                   <Loader2 size={32} className="mx-auto mb-4 text-football-blue animate-spin" />
                   <h3 className="text-lg font-black text-white mb-2 uppercase tracking-wide">Analyzing Match Footage...</h3>
-                  <p className="text-xs text-slate-400 font-medium mb-5">This may take several minutes depending on video length.</p>
+                  {analysisProgress !== null ? (
+                    <div className="w-full max-w-xs mx-auto mb-5">
+                      <div className="flex justify-between text-xs text-slate-400 font-medium mb-1">
+                        <span>Progress</span>
+                        <span>{analysisProgress}%</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                        <div className="h-full bg-football-blue transition-all duration-300" style={{ width: `${analysisProgress}%` }}></div>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-xs text-slate-400 font-medium mb-5">This may take several minutes depending on video length.</p>
+                  )}
                 </>
               ) : (
                 <>

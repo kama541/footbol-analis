@@ -71,9 +71,26 @@ const MatchContext = createContext<MatchContextType | undefined>(undefined);
 export const MatchProvider = ({ children }: { children: ReactNode }) => {
   const [currentTime, setCurrentTimeState] = useState(0); 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [events, setEvents] = useState<MatchEvent[]>([]);
+  const [events, setEvents] = useState<MatchEvent[]>(() => {
+    const saved = localStorage.getItem('match_events');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [players, setPlayers] = useState<PlayerStat[]>(initialPlayers);
-  const [videoSrc, setVideoSrc] = useState<string | null>(null);
+  const [videoSrc, setVideoSrc] = useState<string | null>(() => {
+    return localStorage.getItem('match_videoSrc') || null;
+  });
+
+  useEffect(() => {
+    if (videoSrc) {
+      localStorage.setItem('match_videoSrc', videoSrc);
+    } else {
+      localStorage.removeItem('match_videoSrc');
+    }
+  }, [videoSrc]);
+
+  useEffect(() => {
+    localStorage.setItem('match_events', JSON.stringify(events));
+  }, [events]);
 
   useEffect(() => {
     let interval: number;

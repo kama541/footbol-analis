@@ -6,6 +6,7 @@ from ultralytics import YOLO
 import cv2
 import uuid
 import shutil
+import math
 
 app = FastAPI(title="Football AI Backend")
 
@@ -58,7 +59,7 @@ def process_video(job_id: str, input_path: Path, output_path: Path):
             f"FPS: {fps}, Frames: {total_frames}"
         )
 
-        fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+        fourcc = cv2.VideoWriter_fourcc(*"vp80")
 
         writer = cv2.VideoWriter(
             str(output_path),
@@ -77,6 +78,7 @@ def process_video(job_id: str, input_path: Path, output_path: Path):
             return
 
         frame_count = 0
+        track_history = {}
 
         try:
             while True:
@@ -89,14 +91,48 @@ def process_video(job_id: str, input_path: Path, output_path: Path):
                     frame,
                     persist=True,
                     tracker="bytetrack.yaml",
-                    verbose=False
+                    verbose=False,
+                    classes=[0],
+                    conf=0.15,
+                    imgsz=1280
                 )
 
-                annotated_frame = results[0].plot()
+                annotated_frame = frame.copy()
+                boxes = results[0].boxes
+                if len(boxes) > 0:
+                    xyxy = boxes.xyxy.cpu().numpy()
+                    track_ids = boxes.id.int().cpu().tolist() if boxes.id is not None else [None] * len(xyxy)
+
+                    for box, track_id in zip(xyxy, track_ids):
+                        x1, y1, x2, y2 = map(int, box)
+                        center_x = (x1 + x2) / 2
+                        center_y = (y1 + y2) / 2
+
+                        speed_kmh = 0.0
+                        if track_id is not None:
+                            if track_id in track_history:
+                                prev_x, prev_y, prev_frame = track_history[track_id]
+                                dist = math.hypot(center_x - prev_x, center_y - prev_y)
+                                time_elapsed = (frame_count - prev_frame) / fps
+                                if time_elapsed > 0:
+                                    speed_px_s = dist / time_elapsed
+                                    speed_kmh = speed_px_s * 0.1
+
+                            track_history[track_id] = (center_x, center_y, frame_count)
+                            label = f"{speed_kmh:.1f} km/h"
+                        else:
+                            label = "Player"
+
+                        cv2.rectangle(annotated_frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
+                        cv2.putText(annotated_frame, label, (x1, max(y1 - 10, 0)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
 
                 writer.write(annotated_frame)
 
                 frame_count += 1
+
+                if frame_count >= 300:
+                    print(f"[ANALYSIS] Stopping early at 300 frames to save time.")
+                    break
 
                 if frame_count % 30 == 0:
                     progress = (
@@ -164,7 +200,7 @@ async def analyze_video(background_tasks: BackgroundTasks, file: UploadFile = Fi
 
     job_id = str(uuid.uuid4())
     input_path = UPLOAD_DIR / f"{job_id}{extension}"
-    output_path = RESULT_DIR / f"{job_id}.mp4"
+    output_path = RESULT_DIR / f"{job_id}.webm"
 
     with input_path.open("wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
@@ -188,7 +224,7 @@ def get_result(job_id: str):
 
 @app.get("/api/analyze/result/{job_id}/video")
 def get_result_video(job_id: str):
-    output_path = RESULT_DIR / f"{job_id}.mp4"
+    output_path = RESULT_DIR / f"{job_id}.webm"
 
     if not output_path.exists():
         raise HTTPException(
@@ -198,6 +234,6 @@ def get_result_video(job_id: str):
 
     return FileResponse(
         path=str(output_path),
-        media_type="video/mp4",
-        filename=f"analysis-{job_id}.mp4"
+        media_type="video/webm",
+        filename=f"analysis-{job_id}.webm"
     )
